@@ -12,13 +12,13 @@
                 More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi
             </a>
         </h3>
-        <div class="publication-venue">NeurIPS 2025 spotlight</div>
+        <div class="publication-venue">Dissertationes Universitatis Helsingiensis</div>
         <div class="publication-authors">Nicola Renzi</div>
         <div class="publication-year">2025</div>
         <div class="publication-tags">
             <span class="tag tag-safety">Anthropology and Ecology of Sound</span>
-            <a href="https://arxiv.org/abs/2502.00757" class="tag tag-arxiv">ARXIV</a>
-            <a href="https://github.com/J-Rosser-UK/AgentBreeder" class="tag tag-github">GITHUB</a>
+            <a href="http://hdl.handle.net/10138/593302" class="tag tag-arxiv">Official repository</a>
+            <a href="https://www.academia.edu/128358469/More_than_music_Echosystems_acoustemologies_and_histories_of_listening_from_S%C3%A1pmi" class="tag tag-github">Academia.edu</a>
         </div>
     </div>
 </div>
