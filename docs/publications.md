@@ -4,7 +4,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-        <img src="assets/AgentBreederDiagramJPG.jpg" alt="AgentBreeder publication">
+        <img src="assets/more-than-music.jpg" alt="More-than-music publication">
     </div>
     <div class="publication-content">
         <h3 class="publication-title">
