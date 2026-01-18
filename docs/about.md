@@ -35,6 +35,16 @@
   <span>Academia.edu</span>
 </a>
 
+<a href="https://www.youtube.com/@nicola_renzi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;opacity:0.9;"><path d="M23.498 6.186a3.02 3.02 0 0 0-2.124-2.136C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.374.55A3.02 3.02 0 0 0 .502 6.186 31.7 31.7 0 0 0 0 12a31.7 31.7 0 0 0 .502 5.814 3.02 3.02 0 0 0 2.124 2.136C4.5 20.5 12 20.5 12 20.5s7.5 0 9.374-.55a3.02 3.02 0 0 0 2.124-2.136A31.7 31.7 0 0 0 24 12a31.7 31.7 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/></svg>
+  <span>YouTube</span>
+</a>
+
+
+<a href="https://nicolarenzi.bandcamp.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);"> <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;opacity:0.9;"><path d="M2 18L9.6 6h12.4L14.4 18H2z"/></svg>
+  <span>Bandcamp</span>
+</a>
+
+
 
   
   <a href="https://x.com/jrosseruk" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);">
