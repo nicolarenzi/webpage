@@ -38,15 +38,14 @@
   </div>
 
     <div class="timeline-item">
-    <span class="timeline-dot"></span>
-    <div class="timeline-header">
-      <span class="timeline-org">University of Bologna</span>
-      <span class="timeline-role">PhD in Anthropology of Sound • _cum laude_</span>
-      <span class="timeline-dates">Nov 2021 – Mar 2025</span>
-    </div>
-    <div class="timeline-meta">Bologna, IT (in co-tutelle with the University of Helsinki)</div>
-    <div class="timeline-desc">thesis: More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi</div>
-  </div>
+<span class="timeline-dot"></span>
+<div class="timeline-header">
+  <span class="timeline-org">University of Bologna</span>
+  <span class="timeline-role">PhD in Anthropology of Sound • _cum laude_</span>
+  <span class="timeline-dates">Nov 2021 – Mar 2025</span>
+</div>
+<div class="timeline-meta">Bologna, IT (in co-tutelle with the University of Helsinki)</div>
+<div class="timeline-desc">thesis: More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi</div>
 
   <div class="timeline-item">
     <span class="timeline-dot"></span>
