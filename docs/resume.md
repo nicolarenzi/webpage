@@ -7,33 +7,45 @@
 <div class="timeline-item">
     <span class="timeline-dot"></span>
     <div class="timeline-header">
-      <span class="timeline-org">University of Oxford</span>
-      <span class="timeline-role">DPhil in Machine Learning</span>
-      <span class="timeline-dates">Oct 2024 – <strong class="text-accent">Present</strong></span>
+      <span class="timeline-org">Centre of Excellence in MultiBEING Indigenous Societies / University of Helsinki</span>
+      <span class="timeline-role">Postdoctoral researcher</span>
+      <span class="timeline-dates">Jan 2026 – <strong class="text-accent">Present</strong></span>
     </div>
-    <div class="timeline-desc">Exploring the scaling laws of AI Safety.</div>
+    <div class="timeline-meta">Helsinki, FI</div>
+    <div class="timeline-desc">Exploring how Soundscape Conservation can be reconfigured to integrate Indigenous ecological knowledge and support the biocultural sustainability of Arctic sonic environments</div>
   </div>
 
   <div class="timeline-item">
     <span class="timeline-dot"></span>
     <div class="timeline-header">
-      <span class="timeline-org">Spotify</span>
-      <span class="timeline-role">Research Scientist Intern</span>
-      <span class="timeline-dates">Jun 2025 – Aug 2025</span>
+      <span class="timeline-org">University of Turin</span>
+      <span class="timeline-role">Adjunct Professor</span>
+      <span class="timeline-dates">Sep 2025 – Aug 2026</span>
     </div>
-    <div class="timeline-meta">London, UK • Hybrid</div>
-    <div class="timeline-desc">Investigating mechanistic interpretability for long-context reasoning in LLMs.</div>
+    <div class="timeline-meta">Turin, IT</div>
+    <div class="timeline-desc">Teaching the MA-level course Anthropology and Ecology of Music in the programme Cinema, Arts, Music and Media</div>
   </div>
 
   <div class="timeline-item">
     <span class="timeline-dot"></span>
     <div class="timeline-header">
-      <span class="timeline-org">UK AI Security Institute (AISI)</span>
-      <span class="timeline-role">Bounty Programme</span>
-      <span class="timeline-dates">Feb 2025 – Mar 2025</span>
+      <span class="timeline-org">University of Helsinki</span>
+      <span class="timeline-role">PhD in Indigenous Studies • with distinctions</span>
+      <span class="timeline-dates">Jan 2023 – Apr 2025</span>
     </div>
-    <div class="timeline-meta">Remote • Contract</div>
-    <div class="timeline-desc">Investigating the automated design of agentic systems for cybersecurity benchmarks.</div>
+    <div class="timeline-meta">Helsinki, FI (in co-tutelle with the University of Bologna)</div>
+    <div class="timeline-desc">Investigating Sámi _juoiggus_ as a biocultural heritage bridging human performativity with voices of animate environments</div>
+  </div>
+
+    <div class="timeline-item">
+    <span class="timeline-dot"></span>
+    <div class="timeline-header">
+      <span class="timeline-org">University of Bologna</span>
+      <span class="timeline-role">PhD in Anthropology of Sound • _cum laude_</span>
+      <span class="timeline-dates">Nov 2021 – Mar 2025</span>
+    </div>
+    <div class="timeline-meta">Bologna, IT (in co-tutelle with the University of Helsinki)</div>
+    <div class="timeline-desc">thesis: More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi</div>
   </div>
 
   <div class="timeline-item">
