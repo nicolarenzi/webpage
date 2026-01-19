@@ -37,8 +37,8 @@
     <div class="timeline-desc">Investigating Sámi _juoiggus_ as a biocultural heritage bridging human performativity with voices of animate environments</div>
   </div>
 
-    <div class="timeline-item">
-<span class="timeline-dot"></span>
+<div class="timeline-item">
+    <span class="timeline-dot"></span>
 <div class="timeline-header">
   <span class="timeline-org">University of Bologna</span>
   <span class="timeline-role">PhD in Anthropology of Sound • _cum laude_</span>
