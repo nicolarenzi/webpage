@@ -1,4 +1,4 @@
-# Publications
+# Latest publications
 
 ## 2025
 
