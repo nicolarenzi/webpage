@@ -1,12 +1,10 @@
 # Portfolio
 
-My personal portfolio website showcasing research in AI Safety and Machine Learning.
+My personal portfolio website showcasing my research and art work.
 
-**Live site:** [jrosser.co.uk](https://jrosseruk.github.io)
+**Live site:** nicolarenzi.com
 
-## Preview
 
-![Portfolio Screenshot](docs/assets/screenshot.png)
 
 
 ## Tech Stack
