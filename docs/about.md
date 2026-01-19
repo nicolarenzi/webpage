@@ -7,12 +7,12 @@
     <svg viewBox="0 0 24 24" role="img" aria-hidden="true" style="width:20px;height:20px;opacity:0.9;" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
       <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
     </svg>
-    <span>Google Scholar</span>
+    <span>Scholar</span>
   </a>
 
   <a href="https://unibo.academia.edu/NicolaRenzi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;opacity:0.9;"><path d="M12 2L1 22h4l2.3-4.5h9.4L19 22h4L12 2zm-3.1 11L12 6.7 15.1 13H8.9z"/></svg>
-  <span>Academia.edu</span>
+  <span>Academia</span>
 </a>
 
 <a href="https://www.youtube.com/@nicola_renzi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;opacity:0.9;"><path d="M23.498 6.186a3.02 3.02 0 0 0-2.124-2.136C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.374.55A3.02 3.02 0 0 0 .502 6.186 31.7 31.7 0 0 0 0 12a31.7 31.7 0 0 0 .502 5.814 3.02 3.02 0 0 0 2.124 2.136C4.5 20.5 12 20.5 12 20.5s7.5 0 9.374-.55a3.02 3.02 0 0 0 2.124-2.136A31.7 31.7 0 0 0 24 12a31.7 31.7 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/></svg>
