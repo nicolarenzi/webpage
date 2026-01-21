@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosquito Shower — Nicola Renzi</title>
+    <meta name="description" content="Mosquito Shower – sound installation by Nicola Renzi">
+    <link rel="icon" type="image/x-icon" href="assets/NR-iso-favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+
+<body class="bg-global-bg text-global-text antialiased">
+
+    <!-- Header (same as index, but logo links back) -->
+    <header id="main-header" class="group">
+        <div class="header-grid">
+
+            <a href="./" class="group header-logo flex items-center">
+                <img src="assets/NR-LOGO.png" alt="Nicola Renzi logo" class="me-3 h-10 sm:h-20 w-auto"/>
+            </a>
+
+            <div class="header-title">
+                <span class="text-xl font-bold sm:text-2xl">Nicola Renzi</span>
+            </div>
+
+            <nav class="header-nav sm:flex sm:flex-row sm:items-center">
+                <a href="./">Home</a>
+                <a href="mosquito-shower.html" aria-current="page">Mosquito Shower</a>
+            </nav>
+
+            <div class="header-controls flex items-center gap-3">
+                <button id="theme-toggle" class="flex h-7 w-7 items-center justify-center rounded-md border border-accent-2/20 bg-accent-2/10 p-1 transition-colors hover:bg-accent-2/20" aria-label="Toggle theme">
+                    <!-- same SVGs as index -->
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="mx-auto max-w-3xl px-4 sm:px-8 py-16">
+        <article class="prose">
+            <h1>Mosquito Shower</h1>
+
+            <p>
+                <em>Čuoikkariššu / Mosquito Shower</em> is a sound installation exploring climate microchanges
+                through the buzzing presence of Arctic mosquitoes…
+            </p>
+
+            <!-- You can add images, audio, video, etc. -->
+            <!--
+            <img src="assets/mosquito-shower.jpg" alt="Mosquito Shower installation">
+            -->
+
+            <!--
+            <audio controls>
+                <source src="assets/mosquito-shower.mp3" type="audio/mpeg">
+            </audio>
+            -->
+        </article>
+    </main>
+
+    <footer class="mx-auto max-w-3xl px-4 sm:px-8 py-8 text-center text-sm opacity-75">
+        <p><a href="mailto:nicola.renzi6@unibo.it">nicola.renzi6@unibo.it</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
