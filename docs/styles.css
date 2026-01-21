@@ -1023,9 +1023,9 @@ html {
 }
 
 .tag-safety {
-    background-color: color-mix(in srgb, #ef4444 15%, transparent);
-    border-color: #ef4444;
-    color: #ef4444;
+    background-color: color-mix(in srgb, #af67ff 15%, transparent);
+    border-color: #af67ff;
+    color: #af67ff;
 }
 
 .tag-interpretability {
