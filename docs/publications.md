@@ -8,7 +8,7 @@
     </div>
     <div class="publication-content">
         <h3 class="publication-title">
-            <a href="/AgentBreeder" class="publication-link">
+            <a href="http://hdl.handle.net/10138/593302" class="publication-link">
                 More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi
             </a>
         </h3>
@@ -31,7 +31,7 @@
     </div>
     <div class="publication-content">
         <h3 class="publication-title">
-            <a href="/AgentBreeder" class="publication-link">
+            <a href="https://www.soundethnographies.it/vii-1-2-2024/etnografie-sonore-sound-ethnographies-n-vii-1-2024/renzi-2024/" class="publication-link">
                 Rethinking Silence within Arctic Echosystems
             </a>
         </h3>
