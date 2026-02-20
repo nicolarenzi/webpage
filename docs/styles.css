@@ -233,15 +233,15 @@ body {
     }
 }
 
-/* Hover color for the word "mosquito" */
+/* Hover color for the word "mosquito" (case-insensitive if you wrap both) */
 .hover-mosquito {
   transition: color 0.15s ease;
 }
 .hover-mosquito:hover {
-  color: #ffd400; /* same yellow as bee */
+  color: #ffd400; /* same yellow as the bee (change if you want) */
 }
 
-/* Flying mosquito emoji: reuse the SAME keyframes as the bee */
+/* Flying mosquito emoji created on clicking "mosquito" */
 .flying-mosquito {
   position: fixed;
   z-index: 9999;
@@ -249,9 +249,11 @@ body {
   font-size: 1.2em;
   line-height: 1;
   will-change: transform, opacity;
-  animation: bee-fly 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: bee-fly 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* reuse same keyframes */
 }
 
+/* Your existing @keyframes bee-fly stays exactly the same */
+/* Your existing prefers-reduced-motion block can be reused too */
 @media (prefers-reduced-motion: reduce) {
   .flying-mosquito {
     animation: bee-fade 250ms ease-out forwards;
