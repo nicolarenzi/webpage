@@ -476,6 +476,121 @@ class MarkdownLoader {
     });
 })();
 
+// Hover effect for the word "mosquito" (wrap occurrences)
+(function () {
+  function applyMosquitoHoverEffect(root) {
+    const targetRoot = root || document.body;
+    if (!targetRoot) return;
+
+    const walker = document.createTreeWalker(
+      targetRoot,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode(node) {
+          const value = node.nodeValue;
+          if (!value || !/mosquito/i.test(value)) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          const parent = node.parentNode;
+          if (!parent) return NodeFilter.FILTER_REJECT;
+
+          const tag = parent.nodeName;
+          if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT") {
+            return NodeFilter.FILTER_REJECT;
+          }
+
+          // Avoid double-wrapping
+          if (parent.classList && parent.classList.contains("hover-mosquito")) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+
+    const nodesToProcess = [];
+    let current;
+    while ((current = walker.nextNode())) {
+      nodesToProcess.push(current);
+    }
+
+    nodesToProcess.forEach((textNode) => {
+      const text = textNode.nodeValue;
+      const fragment = document.createDocumentFragment();
+
+      // Split while keeping matched "mosquito" tokens
+      const parts = text.split(/(mosquito)/ig);
+
+      parts.forEach((part) => {
+        if (!part) return;
+
+        if (/^mosquito$/i.test(part)) {
+          const span = document.createElement("span");
+          span.className = "hover-mosquito";
+          span.textContent = part;
+          fragment.appendChild(span);
+        } else {
+          fragment.appendChild(document.createTextNode(part));
+        }
+      });
+
+      if (textNode.parentNode) {
+        textNode.parentNode.replaceChild(fragment, textNode);
+      }
+    });
+  }
+
+  window.applyMosquitoHoverEffect = applyMosquitoHoverEffect;
+})();
+
+// Mosquito spawning when hovering on "mosquito"
+(function () {
+  function spawnMosquitoFromElement(el) {
+    const rect = el.getBoundingClientRect();
+    const startX = rect.left + rect.width / 2;
+    const startY = rect.top + rect.height / 2;
+
+    const mosquito = document.createElement("div");
+    mosquito.className = "flying-mosquito";
+    mosquito.textContent = "🦟";
+    mosquito.style.left = startX + "px";
+    mosquito.style.top = startY + "px";
+
+    // Same random off-screen direction logic as the bee
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.max(window.innerWidth, window.innerHeight) + 200;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+
+    mosquito.style.setProperty("--dx", dx + "px");
+    mosquito.style.setProperty("--dy", dy + "px");
+
+    document.body.appendChild(mosquito);
+
+    const cleanup = () => {
+      if (mosquito && mosquito.parentNode) mosquito.parentNode.removeChild(mosquito);
+    };
+    mosquito.addEventListener("animationend", cleanup, { once: true });
+    setTimeout(cleanup, 4000);
+  }
+
+  // Avoid spawning repeatedly if you "jiggle" inside the same word
+  document.addEventListener("pointerenter", (e) => {
+    const target = e.target;
+    if (target && target.classList && target.classList.contains("hover-mosquito")) {
+      if (target.dataset.mosquitoCooldown === "1") return;
+      target.dataset.mosquitoCooldown = "1";
+
+      spawnMosquitoFromElement(target);
+
+      // cooldown (tweak as you like)
+      setTimeout(() => {
+        delete target.dataset.mosquitoCooldown;
+      }, 500);
+    }
+  }, true);
+})();
+
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
