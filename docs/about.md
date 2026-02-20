@@ -38,6 +38,6 @@
 
 
 
-I'm building my new website.
+I am an anthropologist, field recordist, sound artist, and filmmaker from Bologna, Italy. Through interdisciplinary scholarship and artistic practice, I explore how relations between human communities and environments emerge through listening, sounding, and their entanglement with ecological change and power. My work mainly moves between my maternal community in Campidano (Sardinia) and the ancestral and unceded lands of the Sámi, in the European Arctic—geographies where local ways of listening respond to and resist state-driven resource extraction in different yet resonant ways.
 
-Hello World :)
+My main research interests include ‘more-than-music’, Indigenous acoustemologies, mosquito musicking, biocultural heritage, multimodal field recording, and sustainable soundscape conservation. Across fieldwork, academic venues, and art spaces, my work asks how we might create space for other-than-human voices that are systematically excluded from colonial systems of value, yet act as constitutive participants in shared heritages and increasingly conflictual sound worlds.
