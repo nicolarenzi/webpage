@@ -476,7 +476,7 @@ class MarkdownLoader {
     });
 })();
 
-// Hover effect for the word "mosquito" (wrap occurrences)
+// Hover effect for word "mosquito" (function() {
 (function () {
   function applyMosquitoHoverEffect(root) {
     const targetRoot = root || document.body;
@@ -488,21 +488,21 @@ class MarkdownLoader {
       {
         acceptNode(node) {
           const value = node.nodeValue;
-          if (!value || !/mosquito/i.test(value)) {
-            return NodeFilter.FILTER_REJECT;
-          }
+          if (!value || !/mosquito/i.test(value)) return NodeFilter.FILTER_REJECT;
+
           const parent = node.parentNode;
           if (!parent) return NodeFilter.FILTER_REJECT;
 
           const tag = parent.nodeName;
-          if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT") {
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') {
             return NodeFilter.FILTER_REJECT;
           }
 
           // Avoid double-wrapping
-          if (parent.classList && parent.classList.contains("hover-mosquito")) {
+          if (parent.classList && parent.classList.contains('hover-mosquito')) {
             return NodeFilter.FILTER_REJECT;
           }
+
           return NodeFilter.FILTER_ACCEPT;
         }
       }
@@ -510,24 +510,22 @@ class MarkdownLoader {
 
     const nodesToProcess = [];
     let current;
-    while ((current = walker.nextNode())) {
-      nodesToProcess.push(current);
-    }
+    while ((current = walker.nextNode())) nodesToProcess.push(current);
 
     nodesToProcess.forEach((textNode) => {
       const text = textNode.nodeValue;
       const fragment = document.createDocumentFragment();
 
-      // Split while keeping matched "mosquito" tokens
-      const parts = text.split(/(mosquito)/ig);
+      // Split while keeping the matched word (captures "mosquito" in any case)
+      const parts = text.split(/(mosquito)/gi);
 
       parts.forEach((part) => {
         if (!part) return;
 
         if (/^mosquito$/i.test(part)) {
-          const span = document.createElement("span");
-          span.className = "hover-mosquito";
-          span.textContent = part;
+          const span = document.createElement('span');
+          span.className = 'hover-mosquito';
+          span.textContent = part; // preserves original casing
           fragment.appendChild(span);
         } else {
           fragment.appendChild(document.createTextNode(part));
@@ -543,52 +541,44 @@ class MarkdownLoader {
   window.applyMosquitoHoverEffect = applyMosquitoHoverEffect;
 })();
 
-// Mosquito spawning when hovering on "mosquito"
+// Mosquito spawning when clicking on "mosquito" (function() {
 (function () {
   function spawnMosquitoFromElement(el) {
     const rect = el.getBoundingClientRect();
     const startX = rect.left + rect.width / 2;
     const startY = rect.top + rect.height / 2;
 
-    const mosquito = document.createElement("div");
-    mosquito.className = "flying-mosquito";
-    mosquito.textContent = "🦟";
-    mosquito.style.left = startX + "px";
-    mosquito.style.top = startY + "px";
+    const mozzie = document.createElement('div');
+    mozzie.className = 'flying-mosquito';
+    mozzie.textContent = '🦟';
+    mozzie.style.left = startX + 'px';
+    mozzie.style.top = startY + 'px';
 
-    // Same random off-screen direction logic as the bee
+    // Same random off-screen direction as the bee
     const angle = Math.random() * Math.PI * 2;
     const distance = Math.max(window.innerWidth, window.innerHeight) + 200;
     const dx = Math.cos(angle) * distance;
     const dy = Math.sin(angle) * distance;
 
-    mosquito.style.setProperty("--dx", dx + "px");
-    mosquito.style.setProperty("--dy", dy + "px");
+    mozzie.style.setProperty('--dx', dx + 'px');
+    mozzie.style.setProperty('--dy', dy + 'px');
 
-    document.body.appendChild(mosquito);
+    document.body.appendChild(mozzie);
 
     const cleanup = () => {
-      if (mosquito && mosquito.parentNode) mosquito.parentNode.removeChild(mosquito);
+      if (mozzie && mozzie.parentNode) mozzie.parentNode.removeChild(mozzie);
     };
-    mosquito.addEventListener("animationend", cleanup, { once: true });
+
+    mozzie.addEventListener('animationend', cleanup, { once: true });
     setTimeout(cleanup, 4000);
   }
 
-  // Avoid spawning repeatedly if you "jiggle" inside the same word
-  document.addEventListener("pointerenter", (e) => {
+  document.addEventListener('click', (e) => {
     const target = e.target;
-    if (target && target.classList && target.classList.contains("hover-mosquito")) {
-      if (target.dataset.mosquitoCooldown === "1") return;
-      target.dataset.mosquitoCooldown = "1";
-
+    if (target && target.classList && target.classList.contains('hover-mosquito')) {
       spawnMosquitoFromElement(target);
-
-      // cooldown (tweak as you like)
-      setTimeout(() => {
-        delete target.dataset.mosquitoCooldown;
-      }, 500);
     }
-  }, true);
+  });
 })();
 
 // Initialize all functionality when DOM is loaded
