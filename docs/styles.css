@@ -1365,3 +1365,23 @@ html {
   }
 }
 
+/* =========================
+   read more
+   ========================= */
+
+.about-more summary {
+  cursor: pointer;
+  font-style: italic;
+  color: #777;
+  margin: 1.5rem 0;
+  list-style: none;
+}
+
+.about-more summary::marker {
+  display: none;
+}
+
+.about-more[open] summary {
+  margin-bottom: 2rem;
+}
+
