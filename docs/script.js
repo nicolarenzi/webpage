@@ -381,7 +381,7 @@ class MarkdownLoader {
             {
                 acceptNode(node) {
                     const value = node.nodeValue;
-                    if (!value || (value.indexOf('b') === -1 && value.indexOf('B') === -1)) {
+                    if (!value || (value.indexOf('z') === -1 && value.indexOf('Z') === -1)) {
                         return NodeFilter.FILTER_REJECT;
                     }
                     const parent = node.parentNode;
@@ -411,7 +411,7 @@ class MarkdownLoader {
 
             for (let i = 0; i < text.length; i++) {
                 const ch = text[i];
-                if (ch === 'b' || ch === 'B') {
+                if (ch === 'z' || ch === 'Z') {
                     if (buffer) {
                         fragment.appendChild(document.createTextNode(buffer));
                         buffer = '';
@@ -468,10 +468,14 @@ class MarkdownLoader {
         setTimeout(cleanup, 4000);
     }
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener('mouseover', (e) => {
         const target = e.target;
         if (target && target.classList && target.classList.contains('hover-b')) {
-            spawnBeeFromElement(target);
+             // prevent rapid-fire spawning when moving within the same letter
+        if (target.dataset.beeHover === '1') return;
+        target.dataset.beeHover = '1';
+        spawnBeeFromElement(target);
+        setTimeout(() => { delete target.dataset.beeHover; }, 250);
         }
     });
 })();
