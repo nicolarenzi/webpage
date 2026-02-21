@@ -438,6 +438,88 @@ class MarkdownLoader {
     window.applyBHoverEffect = applyBHoverEffect;
 })();
 
+// Hover effect for the word "mosquito" (wrap occurrences in spans)
+(function() {
+    function applyMosquitoHoverEffect(root) {
+        const targetRoot = root || document.body;
+        if (!targetRoot) return;
+
+        const walker = document.createTreeWalker(
+            targetRoot,
+            NodeFilter.SHOW_TEXT,
+            {
+                acceptNode(node) {
+                    const value = node.nodeValue;
+                    if (!value) return NodeFilter.FILTER_REJECT;
+
+                    // Fast check before regex (case-insensitive)
+                    if (!/mosquito/i.test(value)) return NodeFilter.FILTER_REJECT;
+
+                    const parent = node.parentNode;
+                    if (!parent) return NodeFilter.FILTER_REJECT;
+
+                    const tag = parent.nodeName;
+                    if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') {
+                        return NodeFilter.FILTER_REJECT;
+                    }
+
+                    // Don't re-wrap inside already processed mosquito spans
+                    if (parent.classList && parent.classList.contains('hover-mosquito')) {
+                        return NodeFilter.FILTER_REJECT;
+                    }
+
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }
+        );
+
+        const nodesToProcess = [];
+        let current;
+        while ((current = walker.nextNode())) nodesToProcess.push(current);
+
+        nodesToProcess.forEach((textNode) => {
+            const text = textNode.nodeValue;
+            if (!text) return;
+
+            const fragment = document.createDocumentFragment();
+
+            // Match "mosquito" as a whole word (so "mosquitoes" won't trigger unless you want it)
+            const re = /\bmosquito\b/gi;
+            let lastIndex = 0;
+            let match;
+
+            while ((match = re.exec(text)) !== null) {
+                const start = match.index;
+                const end = start + match[0].length;
+
+                // Text before the match
+                if (start > lastIndex) {
+                    fragment.appendChild(document.createTextNode(text.slice(lastIndex, start)));
+                }
+
+                // The matched word as span
+                const span = document.createElement('span');
+                span.className = 'hover-mosquito';
+                span.textContent = text.slice(start, end); // preserve original casing
+                fragment.appendChild(span);
+
+                lastIndex = end;
+            }
+
+            // Remaining text
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+            }
+
+            if (textNode.parentNode) {
+                textNode.parentNode.replaceChild(fragment, textNode);
+            }
+        });
+    }
+
+    window.applyMosquitoHoverEffect = applyMosquitoHoverEffect;
+})();
+
 // Bee spawning when clicking on a 'b'/'B'
 (function() {
     function spawnBeeFromElement(el) {
@@ -476,6 +558,53 @@ class MarkdownLoader {
     });
 })();
 
+// Mosquito spawning when hovering on the word "mosquito"
+(function() {
+    function spawnMosquitoFromElement(el) {
+        const rect = el.getBoundingClientRect();
+        const startX = rect.left + rect.width / 2;
+        const startY = rect.top + rect.height / 2;
+
+        const mosquito = document.createElement('div');
+        mosquito.className = 'flying-mosquito';
+        mosquito.textContent = '🦟';
+        mosquito.style.left = startX + 'px';
+        mosquito.style.top = startY + 'px';
+
+        // Same random off-screen direction logic as the bee
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.max(window.innerWidth, window.innerHeight) + 200;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        mosquito.style.setProperty('--dx', dx + 'px');
+        mosquito.style.setProperty('--dy', dy + 'px');
+
+        document.body.appendChild(mosquito);
+
+        const cleanup = () => {
+            if (mosquito && mosquito.parentNode) mosquito.parentNode.removeChild(mosquito);
+        };
+        mosquito.addEventListener('animationend', cleanup, { once: true });
+        setTimeout(cleanup, 4000);
+    }
+
+    document.addEventListener('pointerover', (e) => {
+        const target = e.target;
+        if (!(target && target.classList && target.classList.contains('hover-mosquito'))) return;
+
+        // Trigger only when entering from outside the element (not moving inside it)
+        const from = e.relatedTarget;
+        if (from && target.contains(from)) return;
+
+        // Per-element cooldown to avoid spam when you flicker the cursor
+        const now = Date.now();
+        const last = Number(target.dataset.mosquitoLastSpawn || 0);
+        if (now - last < 700) return;
+        target.dataset.mosquitoLastSpawn = String(now);
+
+        spawnMosquitoFromElement(target);
+    }, { passive: true });
+})();
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
