@@ -1381,7 +1381,18 @@ html {
   display: none;
 }
 
-.about-more[open] summary {
-  margin-bottom: 2rem;
+.about-more .summary-less {
+  display: none;
 }
 
+.about-more[open] .summary-more {
+  display: none;
+}
+
+.about-more[open] .summary-less {
+  display: inline;
+}
+
+.about-more summary span {
+  transition: opacity 0.2s ease;
+}
