@@ -233,6 +233,30 @@ body {
     }
 }
 
+/* Hover highlight for the word "mosquito" */
+.hover-mosquito {
+    transition: color 0.15s ease;
+}
+.hover-mosquito:hover {
+    color: var(--color-accent); /* or any color you like */
+}
+
+/* Flying mosquito emoji – reuses the SAME keyframes as the bee */
+.flying-mosquito {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    font-size: 1.15em;
+    line-height: 1;
+    will-change: transform, opacity;
+    animation: bee-fly 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flying-mosquito {
+        animation: bee-fade 250ms ease-out forwards;
+    }
+}
 
 /* Header styles */
 #main-header {
