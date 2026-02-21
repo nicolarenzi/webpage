@@ -581,6 +581,11 @@ class MarkdownLoader {
   });
 })();
 
+// Apply hover effect to all "mosquito" words on initial content
+if (typeof window.applyMosquitoHoverEffect === 'function') {
+  window.applyMosquitoHoverEffect(document.body);
+}
+
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
