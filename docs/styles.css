@@ -1399,26 +1399,64 @@ html {
    box "did you know?"
    ========================= */
 
-.callout {
-  border: 1px solid var(--color-border);
+.fact-slide {
+  position: fixed;
+  right: 0;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 60px;
+  overflow: hidden;
+
   background: var(--color-card-bg);
-  border-radius: 14px;
-  padding: 1rem 1.1rem;
-  box-shadow: 0 10px 30px var(--color-shadow);
-  margin: 1.25rem 0;
+  border: 1px solid var(--color-border);
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+
+  transition: width 0.35s ease;
+  z-index: 50;
 }
 
-.callout-title {
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.2px;
+.fact-slide:hover {
+  width: 300px;
 }
 
-.callout-list {
-  margin: 0;
-  padding-left: 1.15rem;
+.fact-slide-handle {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding: 1rem 0.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
 }
 
-.callout-list li {
-  margin: 0.35rem 0;
+.fact-slide-content {
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fact-slide:hover .fact-slide-content {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .fact-slide {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .fact-slide-handle {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .fact-slide:hover {
+    width: 100%;
+  }
+
+  .fact-slide-content {
+    opacity: 1;
+  }
 }
