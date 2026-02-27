@@ -1407,6 +1407,8 @@ html {
 @media (max-width: 900px) {
   .fact-desktop { display: none; }
   .fact-mobile { display: block; }
+
+      .fact-slide { display: none; }
 }
 
 .fact-slide {
