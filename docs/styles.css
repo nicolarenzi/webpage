@@ -1423,7 +1423,8 @@ html {
   border-radius: 16px 0 0 16px;
 
   box-shadow: 0 15px 40px var(--color-shadow);
-  transition: width 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+transform-origin: right center;
   z-index: 50;
 
     max-height: 60vh;
