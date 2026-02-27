@@ -1399,6 +1399,16 @@ html {
    box "did you know?"
    ========================= */
 
+/* Default: assume desktop */
+.fact-desktop { display: block; }
+.fact-mobile { display: none; }
+
+/* On mobile/tablet: flip */
+@media (max-width: 900px) {
+  .fact-desktop { display: none; }
+  .fact-mobile { display: block; }
+}
+
 .fact-slide {
   position: fixed;
   right: 0;
@@ -1412,51 +1422,80 @@ html {
   border-right: none;
   border-radius: 16px 0 0 16px;
 
-  transition: width 0.35s ease;
+  box-shadow: 0 15px 40px var(--color-shadow);
+  transition: width 0.35s ease, box-shadow 0.35s ease;
   z-index: 50;
 }
 
 .fact-slide:hover {
-  width: 300px;
+  width: 320px;
+  box-shadow: 0 25px 60px var(--color-shadow);
 }
 
 .fact-slide-handle {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  padding: 1rem 0.5rem;
+  padding: 1rem 0.55rem;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
+  user-select: none;
+  opacity: 0.9;
 }
 
 .fact-slide-content {
   padding: 1rem;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .fact-slide:hover .fact-slide-content {
   opacity: 1;
 }
 
+.fact-drawer {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+
+  box-shadow: 0 15px 40px var(--color-shadow);
+  overflow: hidden;
+  z-index: 50;
+}
+
+/* remove default marker */
+.fact-drawer > summary { list-style: none; }
+.fact-drawer > summary::-webkit-details-marker { display: none; }
+
+.fact-drawer-handle {
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fact-drawer-content {
+  padding: 0 1rem 1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.fact-drawer[open] .fact-drawer-content {
+  opacity: 1;
+}
+
+/* prevent it from getting too tall */
+.fact-drawer-content {
+  max-height: 45vh;
+  overflow: auto;
+}
+
 @media (max-width: 900px) {
-  .fact-slide {
-    position: relative;
-    width: 100%;
-    border-radius: 16px;
-    border-right: 1px solid var(--color-border);
-  }
-
-  .fact-slide-handle {
-    writing-mode: horizontal-tb;
-    transform: none;
-  }
-
-  .fact-slide:hover {
-    width: 100%;
-  }
-
-  .fact-slide-content {
-    opacity: 1;
-  }
+  .fact-drawer { bottom: 4.5rem; }
 }
