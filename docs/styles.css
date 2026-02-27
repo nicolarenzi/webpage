@@ -1527,7 +1527,7 @@ iframe[src*="youtube-nocookie.com/embed"] {
   border: 0;
   border-radius: 14px;
   box-shadow: 0 10px 30px var(--color-shadow);
-  margin: 1rem 0 1.5rem;
+  margin: 1rem 0 0.75rem;
 }
 
 /* --- Responsive google maps --- */
@@ -1539,11 +1539,10 @@ iframe[src*="google.com/maps"] {
   max-width: 100%;
   aspect-ratio: 4 / 3;   /* matches 600x450 */
   height: auto;
-
   border: 0;
   border-radius: 16px;
   box-shadow: 0 15px 40px var(--color-shadow);
-  margin: 1.5rem 0;
+  margin: 0.75rem 0;
 }
 
 
