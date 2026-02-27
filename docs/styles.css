@@ -1474,8 +1474,9 @@ html {
   right: 1rem;
   bottom: 1rem;
 
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-card-bg) 70%, transparent);
+
+    border: 1px solid var(--color-border);
   border-radius: 16px;
 
   box-shadow: 0 15px 40px var(--color-shadow);
