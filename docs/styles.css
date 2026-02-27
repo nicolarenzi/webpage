@@ -1521,14 +1521,17 @@ background: var(--color-card-bg);
     padding-bottom: 120px; /* adjust: 100px–160px depending on your drawer */
   }
 
+
   .fact-drawer {
     bottom: calc(1rem + env(safe-area-inset-bottom));
-      
-          background: color-mix(in srgb, var(--color-card-bg) 98%, var(--color-global-bg));
+    background: rgba(255, 255, 255, 0.96);
+  }
 
+  [data-theme="dark"] .fact-drawer {
+    background: rgba(31, 41, 55, 0.96);
   }
 }
-
+  
 /* --- mosquito mating image --- */
 .fact-slide-image {
   width: 100%;
