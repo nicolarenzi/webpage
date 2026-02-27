@@ -1417,6 +1417,8 @@ html {
   width: 60px;
   overflow: hidden;
 
+    display: flex;
+
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-right: none;
@@ -1444,6 +1446,8 @@ html {
   cursor: pointer;
   user-select: none;
   opacity: 0.9;
+
+    min-width: 60px;
 }
 
 .fact-slide-content {
@@ -1454,6 +1458,8 @@ html {
     max-height: 60vh;
   overflow: auto;
   overscroll-behavior: contain;
+
+    flex: 1;
 }
 
 .fact-slide:hover .fact-slide-content {
