@@ -1584,10 +1584,6 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-/* ✅ Phone fix: apply invert+blend to the image inside the MOBILE drawer */
 @media (max-width: 900px) {
-  [data-theme="dark"] .fact-drawer img {
-    filter: invert(1);
-    mix-blend-mode: screen;
-  }
+  .fact-drawer img { outline: 4px solid red !important; }
 }
