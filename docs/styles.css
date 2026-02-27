@@ -1505,14 +1505,21 @@ html {
 
   /* If your "Did you know?" mobile element is fixed at the bottom,
      reserve some breathing room in the page content. */
-  main {
-    padding-bottom: calc(7.5rem + env(safe-area-inset-bottom));
+@media (max-width: 900px) {
+
+  body {
+    padding-bottom: 120px; /* match drawer height */
   }
 
+}
+
   /* Optional: if your article is the one that scrolls, also pad it */
-  article {
-    padding-bottom: calc(7.5rem + env(safe-area-inset-bottom));
+@media (max-width: 900px) {
+
+  body {
+    padding-bottom: 120px; /* match drawer height */
   }
+
 }
 
 
