@@ -1584,28 +1584,41 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-/* MOBILE: mosquito image in the drawer */
+/* Make blend modes blend *inside* the drawer, even if the drawer looks translucent */
 @media (max-width: 900px) {
-
-  /* covers <img> and <picture><img> */
-  .fact-drawer img,
-  .fact-drawer picture img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    display: block;
-    margin-bottom: 0.75rem;
+  .fact-drawer {
+    position: fixed;              /* you already have this, but keep it */
+    isolation: isolate;           /* KEY: contains mix-blend-mode blending */
+    background: transparent !important; /* we'll paint bg via ::before */
   }
 
-  /* dark mode treatment */
+  /* Paint a "fake background layer" INSIDE the drawer */
+  .fact-drawer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    z-index: 0;
+    pointer-events: none;
+    /* light mode translucent look */
+    background: rgba(255, 255, 255, 0.96);
+  }
+
+  /* Dark mode: same idea, but dark */
+  [data-theme="dark"] .fact-drawer::before {
+    background: rgba(31, 41, 55, 0.96);
+  }
+
+  /* Ensure drawer content sits above the ::before layer */
+  .fact-drawer > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Now the image blends against the drawer's own backdrop layer */
   [data-theme="dark"] .fact-drawer img,
   [data-theme="dark"] .fact-drawer picture img {
-    filter: invert(1) contrast(1.05) brightness(1.05) !important;
+    filter: invert(1) !important;
     mix-blend-mode: screen !important;
-  }
-
-  /* IMPORTANT: blend modes only blend against the element behind it */
-  [data-theme="dark"] .fact-drawer {
-    background: rgba(31, 41, 55, 0.96) !important;
   }
 }
