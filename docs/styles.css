@@ -1518,6 +1518,16 @@ html {
   }
 }
 
+/* --- mosquito mating image --- */
+
+.fact-slide-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
 
 /* --- Responsive YouTube embeds without changing HTML --- */
 iframe[src*="youtube.com/embed"],
