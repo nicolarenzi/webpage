@@ -1544,6 +1544,7 @@ background: var(--color-card-bg);
 /* Invert the image in dark mode */
 [data-theme="dark"] .fact-slide-image {
   filter: invert(1);
+      mix-blend-mode: screen;
 }
 
 
