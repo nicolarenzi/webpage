@@ -1524,7 +1524,7 @@ background: var(--color-card-bg);
   .fact-drawer {
     bottom: calc(1rem + env(safe-area-inset-bottom));
       
-          background: color-mix(in srgb, var(--color-card-bg) 90%, var(--color-global-bg));
+          background: color-mix(in srgb, var(--color-card-bg) 98%, var(--color-global-bg));
 
   }
 }
