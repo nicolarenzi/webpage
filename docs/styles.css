@@ -1622,3 +1622,12 @@ iframe[src*="google.com/maps"] {
     mix-blend-mode: screen !important;
   }
 }
+
+@media (max-width: 900px) {
+  /* target super-robusto: qualsiasi img dentro il drawer */
+  [data-theme="dark"] .fact-drawer .fact-drawer-content img,
+  [data-theme="dark"] .fact-drawer img {
+    filter: invert(1) !important;
+    mix-blend-mode: normal !important; /* poi lo cambiamo sotto */
+  }
+}
