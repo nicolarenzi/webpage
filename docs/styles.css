@@ -1631,3 +1631,9 @@ iframe[src*="google.com/maps"] {
     mix-blend-mode: normal !important; /* poi lo cambiamo sotto */
   }
 }
+
+/* DEBUG: evidenzia tutto ciò che è dentro il drawer */
+.fact-drawer * { outline: 1px solid rgba(255,0,0,.35); }
+
+/* DEBUG: evidenzia eventuali IMG dentro il drawer */
+.fact-drawer img { outline: 3px solid lime !important; }
