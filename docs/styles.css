@@ -1584,6 +1584,15 @@ iframe[src*="google.com/maps"] {
   }
 }
 
+/* Force dark-mode blending for the mobile drawer image */
 @media (max-width: 900px) {
-  .fact-drawer img { outline: 4px solid red !important; }
+  [data-theme="dark"] .fact-drawer img {
+    filter: invert(1) !important;
+    mix-blend-mode: screen !important;
+  }
+
+  /* give the blend mode a solid-ish backdrop to blend into */
+  [data-theme="dark"] .fact-drawer {
+    background: rgba(31, 41, 55, 0.96) !important;
+  }
 }
