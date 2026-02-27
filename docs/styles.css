@@ -1529,3 +1529,21 @@ iframe[src*="youtube-nocookie.com/embed"] {
   box-shadow: 0 10px 30px var(--color-shadow);
   margin: 1rem 0 1.5rem;
 }
+
+/* --- Responsive google maps --- */
+
+/* Google Maps responsive embed */
+iframe[src*="google.com/maps"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4 / 3;   /* matches 600x450 */
+  height: auto;
+
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px var(--color-shadow);
+  margin: 1.5rem 0;
+}
+
+
