@@ -1514,3 +1514,18 @@ html {
     padding-bottom: calc(7.5rem + env(safe-area-inset-bottom));
   }
 }
+
+
+/* --- Responsive YouTube embeds without changing HTML --- */
+iframe[src*="youtube.com/embed"],
+iframe[src*="youtube-nocookie.com/embed"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;          /* works with aspect-ratio in modern browsers */
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px var(--color-shadow);
+  margin: 1rem 0 1.5rem;
+}
