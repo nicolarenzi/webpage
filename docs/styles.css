@@ -1500,26 +1500,15 @@ html {
   .fact-drawer { bottom: 4.5rem; }
 }
 
-/* --- Mobile: reserve space so fixed UI (your fact drawer) never covers content --- */
+/* --- Mobile: reserve space so the fixed fact drawer doesn't cover content --- */
 @media (max-width: 900px) {
-
-  /* If your "Did you know?" mobile element is fixed at the bottom,
-     reserve some breathing room in the page content. */
-@media (max-width: 900px) {
-
   body {
-    padding-bottom: 120px; /* match drawer height */
+    padding-bottom: 120px; /* adjust: 100px–160px depending on your drawer */
   }
 
-}
-
-  /* Optional: if your article is the one that scrolls, also pad it */
-@media (max-width: 900px) {
-
-  body {
-    padding-bottom: 120px; /* match drawer height */
+  .fact-drawer {
+    bottom: calc(1rem + env(safe-area-inset-bottom));
   }
-
 }
 
 
