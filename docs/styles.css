@@ -1584,4 +1584,11 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-
+/* Mobile drawer image — dark mode */
+@media (max-width: 900px) {
+  /* nel drawer mobile, in dark mode: inverti l'immagine */
+  [data-theme="dark"] .fact-drawer .fact-slide-image {
+    filter: invert(1) !important;
+    mix-blend-mode: normal !important; /* IMPORTANTISSIMO: niente screen */
+  }
+}
