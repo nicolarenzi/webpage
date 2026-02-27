@@ -1534,6 +1534,10 @@ html {
   border-radius: 12px;
   margin-bottom: 0.75rem;
   display: block;
+
+    /* Invert image in dark mode */
+[data-theme="dark"] .fact-slide-image {
+  filter: invert(1);
 }
 
 
