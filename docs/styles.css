@@ -1587,7 +1587,7 @@ iframe[src*="google.com/maps"] {
 /* Dark mode: make drawer nearly black */
 @media (max-width: 900px) {
   [data-theme="dark"] .fact-drawer {
-    background: #0f172a; /* deep near-black (slate-950 vibe) */
+    background: #0b0f19; /* deep near-black  */
     border-color: #1f2937; /* subtle dark border */
   }
 }
