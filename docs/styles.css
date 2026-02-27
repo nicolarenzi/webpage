@@ -1584,14 +1584,27 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-/* Force dark-mode blending for the mobile drawer image */
+/* MOBILE: mosquito image in the drawer */
 @media (max-width: 900px) {
-  [data-theme="dark"] .fact-drawer img {
-    filter: invert(1) !important;
+
+  /* covers <img> and <picture><img> */
+  .fact-drawer img,
+  .fact-drawer picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  /* dark mode treatment */
+  [data-theme="dark"] .fact-drawer img,
+  [data-theme="dark"] .fact-drawer picture img {
+    filter: invert(1) contrast(1.05) brightness(1.05) !important;
     mix-blend-mode: screen !important;
   }
 
-  /* give the blend mode a solid-ish backdrop to blend into */
+  /* IMPORTANT: blend modes only blend against the element behind it */
   [data-theme="dark"] .fact-drawer {
     background: rgba(31, 41, 55, 0.96) !important;
   }
