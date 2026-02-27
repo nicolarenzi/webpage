@@ -1527,15 +1527,15 @@ html {
 }
 
 /* --- mosquito mating image --- */
-
 .fact-slide-image {
   width: 100%;
   height: auto;
   border-radius: 12px;
   margin-bottom: 0.75rem;
   display: block;
+}
 
-    /* Invert image in dark mode */
+/* Invert the image in dark mode */
 [data-theme="dark"] .fact-slide-image {
   filter: invert(1);
 }
@@ -1575,10 +1575,4 @@ iframe[src*="google.com/maps"] {
   .fact-slide { 
     display: none !important;
   }
-}
-
-/* invert color image */
-    
-[data-theme="dark"] .fact-slide img {
-  filter: invert(1);
 }
