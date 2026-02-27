@@ -1577,4 +1577,8 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-
+/* invert color image */
+    
+[data-theme="dark"] .fact-slide img {
+  filter: invert(1);
+}
