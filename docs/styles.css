@@ -1450,6 +1450,10 @@ html {
   padding: 1rem;
   opacity: 0;
   transition: opacity 0.25s ease;
+
+    max-height: 60vh;
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .fact-slide:hover .fact-slide-content {
