@@ -1584,9 +1584,10 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-/* Dark mode: make mobile drawer fully solid */
+/* Dark mode: make drawer nearly black */
 @media (max-width: 900px) {
   [data-theme="dark"] .fact-drawer {
-    background: #1f2937; /* solid dark gray */
+    background: #0f172a; /* deep near-black (slate-950 vibe) */
+    border-color: #1f2937; /* subtle dark border */
   }
 }
