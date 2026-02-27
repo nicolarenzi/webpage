@@ -1566,4 +1566,11 @@ iframe[src*="google.com/maps"] {
   margin: 0.75rem 0;
 }
 
+/* Force-hide the desktop sidebar on mobile */
+@media (max-width: 900px) {
+  .fact-slide { 
+    display: none !important;
+  }
+}
+
 
