@@ -481,12 +481,102 @@ class MarkdownLoader {
 })();
 
 
+
+// About sheet (bottom pull-up) — opens when footer reaches viewport
+class AboutSheet {
+    constructor() {
+        this.sheet = document.getElementById('aboutSheet');
+        this.footer = document.querySelector('footer.site-footer');
+        this.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // choose behavior
+        this.ONCE_PER_SESSION = true;     // set false if you want it every time
+        this.KEY = 'aboutSheetShown';
+
+        this.init();
+    }
+
+    init() {
+        if (!this.sheet) return;
+
+        this.panel = this.sheet.querySelector('.about-sheet__panel');
+        this.closeEls = this.sheet.querySelectorAll('[data-about-close]');
+
+        // Close handlers (backdrop + button)
+        this.closeEls.forEach(el => el.addEventListener('click', () => this.close()));
+
+        // ESC to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.sheet.classList.contains('is-open')) {
+                this.close();
+            }
+        });
+
+        // Observe footer; open when it appears
+        if ('IntersectionObserver' in window && this.footer) {
+            this.observer = new IntersectionObserver((entries) => {
+                const entry = entries[0];
+                if (entry && entry.isIntersecting) this.open();
+            }, { threshold: 0.15 });
+
+            this.observer.observe(this.footer);
+        } else {
+            // fallback: open near bottom
+            window.addEventListener('scroll', () => {
+                const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 80;
+                if (nearBottom) this.open();
+            }, { passive: true });
+        }
+    }
+
+    open() {
+        if (!this.sheet) return;
+
+        if (this.ONCE_PER_SESSION && sessionStorage.getItem(this.KEY) === '1') return;
+
+        // Don’t pop if the mobile menu is open (avoid “two overlays”)
+        const header = document.getElementById('main-header');
+        if (header && header.classList.contains('menu-open')) return;
+
+        this.sheet.classList.add('is-open');
+        this.sheet.setAttribute('aria-hidden', 'false');
+
+        if (this.ONCE_PER_SESSION) sessionStorage.setItem(this.KEY, '1');
+
+        // Lock background scroll (but keep your menu logic intact)
+        document.body.style.overflow = 'hidden';
+
+        // focus panel for keyboard users (panel must have tabindex="-1" in HTML)
+        if (!this.prefersReduced) {
+            setTimeout(() => this.panel?.focus?.(), 50);
+        }
+    }
+
+    close() {
+        if (!this.sheet) return;
+
+        this.sheet.classList.remove('is-open');
+        this.sheet.setAttribute('aria-hidden', 'true');
+
+        // Only unlock if mobile menu is not open
+        const header = document.getElementById('main-header');
+        if (!header || !header.classList.contains('menu-open')) {
+            document.body.style.overflow = '';
+        }
+    }
+}
+
+
+
+
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
     new ThemeManager();
     new MobileNavigation();
     new SmoothScroll();
+        new AboutSheet(); // ✅ add this
+
     
     // Make NavigationHighlight available globally for smooth scroll integration
     window.navigationHighlightInstance = new NavigationHighlight();
