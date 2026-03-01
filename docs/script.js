@@ -1096,20 +1096,21 @@ prefersReducedMotion.addEventListener('change', () => {
 
 
 // About sheet bio tabs switch (mobile)
-(function initAboutBioTabs() {
+document.addEventListener('DOMContentLoaded', () => {
   const sheet = document.getElementById('aboutSheet');
   if (!sheet) return;
 
-  const tabs = sheet.querySelectorAll('[data-bio-tab]');
-  const panels = {
-    mai: sheet.querySelector('#bio-mai'),
-    nicola: sheet.querySelector('#bio-nicola')
-  };
+  const maiPanel = sheet.querySelector('#bio-mai');
+  const nicolaPanel = sheet.querySelector('#bio-nicola');
 
-  if (!tabs.length || !panels.mai || !panels.nicola) return;
+  if (!maiPanel || !nicolaPanel) {
+    console.warn('Bio panels not found');
+    return;
+  }
 
   function setActive(which) {
-    // Tabs
+    const tabs = sheet.querySelectorAll('[data-bio-tab]');
+
     tabs.forEach(btn => {
       const isActive = btn.dataset.bioTab === which;
       btn.classList.toggle('is-active', isActive);
@@ -1117,26 +1118,27 @@ prefersReducedMotion.addEventListener('change', () => {
       btn.tabIndex = isActive ? 0 : -1;
     });
 
-    // Panels
-    Object.entries(panels).forEach(([key, panel]) => {
-      const active = key === which;
-      if (active) {
-        panel.hidden = false;
-        panel.classList.add('is-active');
-      } else {
-        panel.hidden = true;
-        panel.classList.remove('is-active');
-      }
-    });
+    if (which === 'mai') {
+      maiPanel.hidden = false;
+      nicolaPanel.hidden = true;
+    } else {
+      maiPanel.hidden = true;
+      nicolaPanel.hidden = false;
+    }
   }
 
-  // Default: Mai Britt Utsi
+  // Default panel
   setActive('mai');
 
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => setActive(btn.dataset.bioTab));
+  // Delegated click handler
+  sheet.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-bio-tab]');
+    if (!button) return;
+
+    event.preventDefault();
+    setActive(button.dataset.bioTab);
   });
-})();
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   new PartyHatExplosion();
