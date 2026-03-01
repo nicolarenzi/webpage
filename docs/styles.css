@@ -1803,3 +1803,46 @@ iframe[src*="google.com/maps"] {
     cursor: grabbing;
   }
 }
+
+/* make the handle a real visible tab on desktop */
+
+@media (min-width: 901px) {
+  .about-sheet__handle {
+    width: 140px;
+    height: 34px;              /* bigger grab area */
+    border-radius: 14px 14px 0 0;
+    margin: -0.5rem auto 0.75rem;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-card-bg) 92%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-border) 75%, transparent);
+    box-shadow: 0 10px 25px var(--color-shadow);
+    cursor: grab;
+    touch-action: none;
+    position: sticky;
+    top: 0; /* stays reachable while you scroll inside panel when open */
+    z-index: 2;
+  }
+
+  /* inner “bar” look using a pseudo-element */
+  .about-sheet__handle::before {
+    content: "";
+    width: 56px;
+    height: 5px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-accent-2) 25%, transparent);
+    opacity: 0.9;
+  }
+
+  /* optional label */
+  .about-sheet__handle::after {
+    content: "About us";
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin-top: 0.2rem;
+  }
+
+  .about-sheet.is-dragging .about-sheet__handle {
+    cursor: grabbing;
+  }
+}
