@@ -1856,3 +1856,8 @@ iframe[src*="google.com/maps"] {
   }
 
 }
+
+    /* Prevent "About us" from breaking into two lines */
+.about-sheet__handle-label {
+  white-space: nowrap;
+}
