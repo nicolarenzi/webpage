@@ -1647,8 +1647,7 @@ iframe[src*="google.com/maps"] {
   transform: translateX(-50%) translateY(var(--sheet-y, 105%));
 
   width: min(980px, calc(100vw - 2rem));
-  max-height: min(80vh, 760px);
-
+    max-height: min(90vh, 920px);
   background: color-mix(in srgb, var(--color-card-bg) 92%, transparent);
   border: 1px solid var(--color-border);
   border-radius: 22px 22px 0 0;
