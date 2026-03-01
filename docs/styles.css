@@ -1782,3 +1782,24 @@ iframe[src*="google.com/maps"] {
     pointer-events: none;
   }
 }
+
+/* Desktop: allow grabbing only when footer is in view */
+.about-sheet.is-armed {
+  pointer-events: auto; /* so the handle can receive pointer events */
+}
+
+/* Make only the panel/handle clickable while armed (optional but nice) */
+.about-sheet.is-armed .about-sheet__backdrop {
+  pointer-events: none; /* backdrop won't block page until it's truly open */
+}
+
+/* Desktop handle affordance */
+@media (min-width: 901px) {
+  .about-sheet__handle {
+    cursor: grab;
+    touch-action: none; /* important for pointer dragging */
+  }
+  .about-sheet.is-dragging .about-sheet__handle {
+    cursor: grabbing;
+  }
+}
