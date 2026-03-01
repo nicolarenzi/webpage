@@ -1606,6 +1606,12 @@ iframe[src*="google.com/maps"] {
   /* We will control these with CSS variables from JS */
   opacity: var(--sheet-alpha, 0);
 }
+/* Put this near your .about-sheet rules */
+#aboutSheet {
+  --sheet-y: 105%;
+  --sheet-alpha: 0;
+  --sheet-backdrop: 0;
+}
 
 .about-sheet.is-open {
   /* is-open will now just mean “it’s visible enough to interact” */
