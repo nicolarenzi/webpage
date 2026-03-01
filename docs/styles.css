@@ -1600,15 +1600,16 @@ iframe[src*="google.com/maps"] {
 .about-sheet {
   position: fixed;
   inset: 0;
-  z-index: 120; /* above header (100) and your fact drawer (50) */
+  z-index: 120;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
+
+  /* We will control these with CSS variables from JS */
+  opacity: var(--sheet-alpha, 0);
 }
 
 .about-sheet.is-open {
+  /* is-open will now just mean “it’s visible enough to interact” */
   pointer-events: auto;
-  opacity: 1;
 }
 
 .about-sheet__backdrop {
@@ -1616,6 +1617,14 @@ iframe[src*="google.com/maps"] {
   inset: 0;
   background: rgba(0,0,0,0.35);
   backdrop-filter: blur(4px);
+
+  /* Gradual fade driven by JS */
+  opacity: var(--sheet-backdrop, 0);
+  transition: none;
+}
+
+[data-theme="dark"] .about-sheet__backdrop {
+  background: rgba(0,0,0,0.55);
 }
 
 [data-theme="dark"] .about-sheet__backdrop {
@@ -1626,7 +1635,11 @@ iframe[src*="google.com/maps"] {
   position: absolute;
   left: 50%;
   bottom: 0;
-  transform: translateX(-50%) translateY(105%);
+
+  /* JS will animate this value gradually:
+     105% = hidden below screen, 0% = fully open */
+  transform: translateX(-50%) translateY(var(--sheet-y, 105%));
+
   width: min(980px, calc(100vw - 2rem));
   max-height: min(80vh, 760px);
 
@@ -1639,16 +1652,15 @@ iframe[src*="google.com/maps"] {
   overflow: auto;
   overscroll-behavior: contain;
 
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* IMPORTANT: no transition here (scroll-driven) */
+  transition: none;
+  will-change: transform;
 }
 
-.about-sheet.is-open .about-sheet__panel {
-  transform: translateX(-50%) translateY(0);
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .about-sheet,
-  .about-sheet__panel {
+  .about-sheet__panel,
+  .about-sheet__backdrop {
     transition: none;
   }
 }
