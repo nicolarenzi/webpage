@@ -1917,3 +1917,16 @@ iframe[src*="google.com/maps"] {
     display: none !important;
   }
 }
+
+/* Nicer link's color in this section */
+.about-sheet__contact {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.about-sheet__contact:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
