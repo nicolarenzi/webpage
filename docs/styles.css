@@ -1910,3 +1910,10 @@ iframe[src*="google.com/maps"] {
   text-transform: uppercase;
   opacity: 0.85;
 }
+
+/* Desktop: use the 2-column grid, hide the tab panels */
+@media (min-width: 821px) {
+  .about-sheet__panels {
+    display: none !important;
+  }
+}
