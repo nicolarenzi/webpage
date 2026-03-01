@@ -841,6 +841,7 @@ class AboutSheet {
     }, this.CLOSE_COOLDOWN_MS + 50);
   }
 }  
+}
 
 
 // Initialize all functionality when DOM is loaded
