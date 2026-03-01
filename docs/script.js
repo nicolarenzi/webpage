@@ -662,7 +662,7 @@ close() {
     document.body.style.overflow = '';
   }
 }
-
+}
 
 
 // Initialize all functionality when DOM is loaded
