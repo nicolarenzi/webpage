@@ -1096,3 +1096,47 @@ prefersReducedMotion.addEventListener('change', () => {
         document.documentElement.style.setProperty('scroll-behavior', 'smooth');
     }
 });
+
+
+// About sheet bio tabs switch (mobile)
+(function initAboutBioTabs() {
+  const sheet = document.getElementById('aboutSheet');
+  if (!sheet) return;
+
+  const tabs = sheet.querySelectorAll('[data-bio-tab]');
+  const panels = {
+    mai: sheet.querySelector('#bio-mai'),
+    nicola: sheet.querySelector('#bio-nicola')
+  };
+
+  if (!tabs.length || !panels.mai || !panels.nicola) return;
+
+  function setActive(which) {
+    // Tabs
+    tabs.forEach(btn => {
+      const isActive = btn.dataset.bioTab === which;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.tabIndex = isActive ? 0 : -1;
+    });
+
+    // Panels
+    Object.entries(panels).forEach(([key, panel]) => {
+      const active = key === which;
+      if (active) {
+        panel.hidden = false;
+        panel.classList.add('is-active');
+      } else {
+        panel.hidden = true;
+        panel.classList.remove('is-active');
+      }
+    });
+  }
+
+  // Default: Mai Britt Utsi
+  setActive('mai');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => setActive(btn.dataset.bioTab));
+  });
+})();
