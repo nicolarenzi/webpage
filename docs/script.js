@@ -498,10 +498,16 @@ class AboutSheet {
 
 
       // How much “extra scroll” near the bottom maps to fully open
-this.START_AT_PX = 140;   // start only very close to bottom
-this.PULL_RANGE_PX = 420; // how much "extra push" to fully open
 
-this.OPEN_THRESHOLD = 0.06;    // when to enable pointer-events
+this.START_AT_PX = 220;     // start a bit earlier than 140 (easier)
+this.PULL_RANGE_PX = 260;   // smaller range = less effort to reach open
+
+// Behavior
+this.OPEN_THRESHOLD = 0.08; // enable pointer-events a bit later
+this.LATCH_AT = 0.35;       // once you reach 35%, it snaps open and stays open
+
+this.isLatched = false;
+
 this.CLOSE_COOLDOWN_MS = 900;  // after close, allow reopen again
 this.lastClosedAt = 0;
 
@@ -586,54 +592,53 @@ p = Math.max(0, Math.min(1, p));
     });
   }
 
-  apply(p) {
-    this.progress = p;
-
-    // Map progress to translateY: 105% (hidden) -> 0% (open)
-    const y = (105 - (105 * p)).toFixed(2) + '%';
-
-    // Fade in gently; keep backdrop a bit subtler than panel
-    const alpha = (p <= 0 ? 0 : Math.min(1, p * 1.15)).toFixed(3);
-    const backdrop = (Math.min(1, p * 0.95)).toFixed(3);
-
-    this.sheet.style.setProperty('--sheet-y', y);
-    this.sheet.style.setProperty('--sheet-alpha', alpha);
-    this.sheet.style.setProperty('--sheet-backdrop', backdrop);
-
-    const openEnough = p >= this.OPEN_THRESHOLD;
-
-    if (openEnough) {
-      this.sheet.classList.add('is-open');
-      this.sheet.setAttribute('aria-hidden', 'false');
-
-      // Only lock scroll when it's basically open (not during tiny peeks)
-      if (p > 0.35) document.body.style.overflow = 'hidden';
-
-      // focus once when it becomes “meaningfully open”
-      if (!this.prefersReduced && p > 0.75 && !this._focusedOnce) {
-        this._focusedOnce = true;
-        this.panel?.focus?.();
-      }
-    } else {
-      this.sheet.classList.remove('is-open');
-      this.sheet.setAttribute('aria-hidden', 'true');
-      this._focusedOnce = false;
-
-      // Only unlock if mobile menu is not open
-      const header = document.getElementById('main-header');
-      if (!header || !header.classList.contains('menu-open')) {
-        document.body.style.overflow = '';
-      }
-    }
+apply(p) {
+  // If latched, stay fully open
+  if (this.isLatched) {
+    p = 1;
   }
 
-  close() {
-    this.lastClosedAt = Date.now();
+  this.progress = p;
 
-    // Snap closed immediately
-    this.apply(0);
+  // Map progress to translateY: 105% (hidden) -> 0% (open)
+  const y = (105 - (105 * p)).toFixed(2) + '%';
 
-    // unlock scroll (unless mobile menu is open)
+  // Fade in gently; keep backdrop a bit subtler than panel
+  const alpha = (p <= 0 ? 0 : Math.min(1, p * 1.15)).toFixed(3);
+  const backdrop = (Math.min(1, p * 0.95)).toFixed(3);
+
+  this.sheet.style.setProperty('--sheet-y', y);
+  this.sheet.style.setProperty('--sheet-alpha', alpha);
+  this.sheet.style.setProperty('--sheet-backdrop', backdrop);
+
+  // Latch once pulled enough (and not already latched)
+  if (!this.isLatched && p >= this.LATCH_AT) {
+    this.isLatched = true;
+    this.sheet.classList.add('is-open');
+    this.sheet.setAttribute('aria-hidden', 'false');
+
+    // Lock background scroll only when latched
+    document.body.style.overflow = 'hidden';
+
+    if (!this.prefersReduced && !this._focusedOnce) {
+      this._focusedOnce = true;
+      setTimeout(() => this.panel?.focus?.(), 50);
+    }
+    return;
+  }
+
+  // Normal “peek” behavior before latch
+  const openEnough = p >= this.OPEN_THRESHOLD;
+
+  if (openEnough) {
+    this.sheet.classList.add('is-open');
+    this.sheet.setAttribute('aria-hidden', 'false');
+  } else {
+    this.sheet.classList.remove('is-open');
+    this.sheet.setAttribute('aria-hidden', 'true');
+    this._focusedOnce = false;
+
+    // Only unlock if mobile menu is not open
     const header = document.getElementById('main-header');
     if (!header || !header.classList.contains('menu-open')) {
       document.body.style.overflow = '';
@@ -641,6 +646,22 @@ p = Math.max(0, Math.min(1, p));
   }
 }
 
+close() {
+  this.lastClosedAt = Date.now();
+
+  // Unlatch
+  this.isLatched = false;
+  this._focusedOnce = false;
+
+  // Snap closed immediately
+  this.apply(0);
+
+  // unlock scroll (unless mobile menu is open)
+  const header = document.getElementById('main-header');
+  if (!header || !header.classList.contains('menu-open')) {
+    document.body.style.overflow = '';
+  }
+}
 
 
 
