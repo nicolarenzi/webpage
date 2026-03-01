@@ -483,87 +483,154 @@ class MarkdownLoader {
 
 
 // About sheet (bottom pull-up) — opens when footer reaches viewport
+// About sheet (bottom pull-up) — scroll-driven near page end
 class AboutSheet {
-    constructor() {
-        this.sheet = document.getElementById('aboutSheet');
-        this.footer = document.querySelector('footer.site-footer');
-        this.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  constructor() {
+    this.sheet = document.getElementById('aboutSheet');
+    if (!this.sheet) return;
 
-        // choose behavior
-        this.ONCE_PER_SESSION = true;     // set false if you want it every time
-        this.KEY = 'aboutSheetShown';
+    this.panel = this.sheet.querySelector('.about-sheet__panel');
+    this.backdrop = this.sheet.querySelector('.about-sheet__backdrop');
+    this.footer = document.querySelector('footer.site-footer');
+    this.closeEls = this.sheet.querySelectorAll('[data-about-close]');
 
-        this.init();
+    this.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // How much “extra scroll” near the bottom maps to fully open
+    this.PULL_RANGE_PX = 520;      // increase = slower / more gradual
+    this.OPEN_THRESHOLD = 0.06;    // when to enable pointer-events
+    this.CLOSE_COOLDOWN_MS = 900;  // after close, allow reopen again
+    this.lastClosedAt = 0;
+
+    this.ticking = false;
+    this.progress = 0; // 0..1
+
+    this.init();
+  }
+
+  init() {
+    // Close handlers
+    this.closeEls.forEach(el => el.addEventListener('click', () => this.close()));
+
+    // ESC to close when open-ish
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.sheet.classList.contains('is-open')) this.close();
+    });
+
+    // Initial paint
+    this.apply(0);
+
+    // Scroll-driven updates
+    window.addEventListener('scroll', () => this.onScroll(), { passive: true });
+    window.addEventListener('resize', () => this.onScroll(), { passive: true });
+
+    // One kick after load
+    this.onScroll();
+  }
+
+  onScroll() {
+    if (this.ticking) return;
+    this.ticking = true;
+
+    requestAnimationFrame(() => {
+      this.ticking = false;
+
+      // Don’t pop if the mobile menu is open (avoid “two overlays”)
+      const header = document.getElementById('main-header');
+      if (header && header.classList.contains('menu-open')) {
+        this.apply(0);
+        return;
+      }
+
+      // If user just closed it, don’t reopen immediately
+      if (Date.now() - this.lastClosedAt < this.CLOSE_COOLDOWN_MS) {
+        this.apply(0);
+        return;
+      }
+
+      // Compute "how close to bottom" we are
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const viewportH = window.innerHeight || 0;
+      const docH = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+
+      const bottomDistance = docH - (scrollY + viewportH); // px remaining to bottom
+
+      // When bottomDistance <= PULL_RANGE_PX => start opening
+      let p = 1 - (bottomDistance / this.PULL_RANGE_PX);
+      p = Math.max(0, Math.min(1, p));
+
+      // If footer exists, make it feel tied to footer entering viewport
+      if (this.footer) {
+        const r = this.footer.getBoundingClientRect();
+        // r.top <= viewportH means footer is entering
+        const footerP = 1 - (r.top / viewportH);
+        const footerClamped = Math.max(0, Math.min(1, footerP));
+        // Blend both signals; helps “pull” feel
+        p = Math.max(p, footerClamped * 0.85);
+      }
+
+      this.apply(p);
+    });
+  }
+
+  apply(p) {
+    this.progress = p;
+
+    // Map progress to translateY: 105% (hidden) -> 0% (open)
+    const y = (105 - (105 * p)).toFixed(2) + '%';
+
+    // Fade in gently; keep backdrop a bit subtler than panel
+    const alpha = (p <= 0 ? 0 : Math.min(1, p * 1.15)).toFixed(3);
+    const backdrop = (Math.min(1, p * 0.95)).toFixed(3);
+
+    this.sheet.style.setProperty('--sheet-y', y);
+    this.sheet.style.setProperty('--sheet-alpha', alpha);
+    this.sheet.style.setProperty('--sheet-backdrop', backdrop);
+
+    const openEnough = p >= this.OPEN_THRESHOLD;
+
+    if (openEnough) {
+      this.sheet.classList.add('is-open');
+      this.sheet.setAttribute('aria-hidden', 'false');
+
+      // Only lock scroll when it's basically open (not during tiny peeks)
+      if (p > 0.35) document.body.style.overflow = 'hidden';
+
+      // focus once when it becomes “meaningfully open”
+      if (!this.prefersReduced && p > 0.75 && !this._focusedOnce) {
+        this._focusedOnce = true;
+        this.panel?.focus?.();
+      }
+    } else {
+      this.sheet.classList.remove('is-open');
+      this.sheet.setAttribute('aria-hidden', 'true');
+      this._focusedOnce = false;
+
+      // Only unlock if mobile menu is not open
+      const header = document.getElementById('main-header');
+      if (!header || !header.classList.contains('menu-open')) {
+        document.body.style.overflow = '';
+      }
     }
+  }
 
-    init() {
-        if (!this.sheet) return;
+  close() {
+    this.lastClosedAt = Date.now();
 
-        this.panel = this.sheet.querySelector('.about-sheet__panel');
-        this.closeEls = this.sheet.querySelectorAll('[data-about-close]');
+    // Snap closed immediately
+    this.apply(0);
 
-        // Close handlers (backdrop + button)
-        this.closeEls.forEach(el => el.addEventListener('click', () => this.close()));
-
-        // ESC to close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.sheet.classList.contains('is-open')) {
-                this.close();
-            }
-        });
-
-        // Observe footer; open when it appears
-        if ('IntersectionObserver' in window && this.footer) {
-            this.observer = new IntersectionObserver((entries) => {
-                const entry = entries[0];
-                if (entry && entry.isIntersecting) this.open();
-            }, { threshold: 0.15 });
-
-            this.observer.observe(this.footer);
-        } else {
-            // fallback: open near bottom
-            window.addEventListener('scroll', () => {
-                const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 80;
-                if (nearBottom) this.open();
-            }, { passive: true });
-        }
+    // unlock scroll (unless mobile menu is open)
+    const header = document.getElementById('main-header');
+    if (!header || !header.classList.contains('menu-open')) {
+      document.body.style.overflow = '';
     }
-
-    open() {
-        if (!this.sheet) return;
-
-        if (this.ONCE_PER_SESSION && sessionStorage.getItem(this.KEY) === '1') return;
-
-        // Don’t pop if the mobile menu is open (avoid “two overlays”)
-        const header = document.getElementById('main-header');
-        if (header && header.classList.contains('menu-open')) return;
-
-        this.sheet.classList.add('is-open');
-        this.sheet.setAttribute('aria-hidden', 'false');
-
-        if (this.ONCE_PER_SESSION) sessionStorage.setItem(this.KEY, '1');
-
-        // Lock background scroll (but keep your menu logic intact)
-        document.body.style.overflow = 'hidden';
-
-        // focus panel for keyboard users (panel must have tabindex="-1" in HTML)
-        if (!this.prefersReduced) {
-            setTimeout(() => this.panel?.focus?.(), 50);
-        }
-    }
-
-    close() {
-        if (!this.sheet) return;
-
-        this.sheet.classList.remove('is-open');
-        this.sheet.setAttribute('aria-hidden', 'true');
-
-        // Only unlock if mobile menu is not open
-        const header = document.getElementById('main-header');
-        if (!header || !header.classList.contains('menu-open')) {
-            document.body.style.overflow = '';
-        }
-    }
+  }
 }
 
 
