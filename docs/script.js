@@ -685,7 +685,7 @@ class AboutSheet {
 
       // tiny “peek” so user notices it’s draggable (optional)
       if (!this.isLatched && !this.dragging) {
-        this.apply(0.22);
+        this.apply(0.45);
       }
     } else {
       this.sheet.classList.remove('is-armed');
