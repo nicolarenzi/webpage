@@ -1591,3 +1591,186 @@ iframe[src*="google.com/maps"] {
     border-color: #1f2937; /* subtle dark border */
   }
 }
+
+
+/* =========================
+   Liner Notes (About us)
+   ========================= */
+
+.liner-notes{
+  max-width: 57.6rem;       /* match max-w-3xl */
+  margin: 3.5rem auto 0;
+  padding: 0 1rem;          /* match footer padding feel */
+}
+
+/* a soft “coda line” before the sleeve */
+.liner-notes::before{
+  content:"";
+  display:block;
+  height: 1px;
+  margin: 0 0 1.25rem;
+  background: linear-gradient(90deg, transparent,
+    color-mix(in srgb, var(--color-accent-2) 35%, transparent),
+    transparent);
+  opacity: 0.6;
+}
+
+.liner{
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  border-radius: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-card-bg) 65%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 55px var(--color-shadow);
+}
+
+/* remove default marker */
+.liner > summary { list-style: none; }
+.liner > summary::-webkit-details-marker{ display:none; }
+
+.liner__summary{
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.9rem;
+  align-items: baseline;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  background: color-mix(in srgb, var(--color-global-bg) 55%, transparent);
+}
+
+.liner__title{
+  font-weight: 700;
+  color: var(--color-accent-2);
+  letter-spacing: 0.01em;
+}
+
+.liner__hint{
+  opacity: 0.75;
+  font-size: 0.95rem;
+}
+
+.liner__chev{
+  opacity: 0.75;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.liner[open] .liner__chev{
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.liner__panel{
+  padding: 1.1rem;
+  display: grid;
+  gap: 1.1rem;
+  background:
+    radial-gradient(900px 180px at 50% 0%,
+      color-mix(in srgb, var(--color-accent) 10%, transparent),
+      transparent 60%);
+}
+
+.liner__figure{
+  margin: 0;
+}
+
+.liner__figure img{
+  width: 100%;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  box-shadow: 0 12px 40px var(--color-shadow);
+}
+
+.liner__figure figcaption{
+  text-align: center;
+  margin-top: 0.65rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.liner__grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.voice{
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  border-radius: 16px;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--color-card-bg) 75%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+/* a tiny “sonic halo” on each bio card */
+.voice::before{
+  content:"";
+  position:absolute;
+  inset:-60px -80px auto -80px;
+  height: 140px;
+  background: radial-gradient(circle at 50% 110%,
+    color-mix(in srgb, var(--color-accent-2) 16%, transparent),
+    transparent 62%);
+  pointer-events:none;
+}
+
+.voice h3{
+  margin: 0 0 0.35rem;
+  color: var(--color-accent-2);
+  font-size: 1.05rem;
+}
+
+.voice__role{
+  margin: 0 0 0.85rem;
+  opacity: 0.78;
+  font-size: 0.95rem;
+}
+
+.voice__bio{
+  margin: 0 0 0.95rem;
+  line-height: 1.55;
+}
+
+.voice__links{
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.voice__links a{
+  color: var(--color-link);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 55%, transparent);
+  opacity: 0.9;
+}
+
+.voice__links a:hover{
+  opacity: 1;
+  border-bottom-color: currentColor;
+}
+
+.liner__meta{
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+  padding-top: 0.85rem;
+  font-size: 0.92rem;
+  opacity: 0.92;
+}
+
+.liner__meta strong{
+  color: var(--color-accent-2);
+}
+
+/* Mobile */
+@media (max-width: 820px){
+  .liner__summary{
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+  .liner__grid{
+    grid-template-columns: 1fr;
+  }
+}
