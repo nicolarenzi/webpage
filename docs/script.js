@@ -496,16 +496,20 @@ class AboutSheet {
 
     this.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // How much “extra scroll” near the bottom maps to fully open
-    this.PULL_RANGE_PX = 520;      // increase = slower / more gradual
-    this.OPEN_THRESHOLD = 0.06;    // when to enable pointer-events
-    this.CLOSE_COOLDOWN_MS = 900;  // after close, allow reopen again
-    this.lastClosedAt = 0;
 
-    this.ticking = false;
-    this.progress = 0; // 0..1
+      // How much “extra scroll” near the bottom maps to fully open
+this.START_AT_PX = 140;   // start only very close to bottom
+this.PULL_RANGE_PX = 420; // how much "extra push" to fully open
 
-    this.init();
+this.OPEN_THRESHOLD = 0.06;    // when to enable pointer-events
+this.CLOSE_COOLDOWN_MS = 900;  // after close, allow reopen again
+this.lastClosedAt = 0;
+
+this.ticking = false;
+this.progress = 0; // 0..1
+
+this.init();
+      
   }
 
   init() {
@@ -561,8 +565,12 @@ class AboutSheet {
       const bottomDistance = docH - (scrollY + viewportH); // px remaining to bottom
 
       // When bottomDistance <= PULL_RANGE_PX => start opening
-      let p = 1 - (bottomDistance / this.PULL_RANGE_PX);
-      p = Math.max(0, Math.min(1, p));
+// Start only very near the bottom
+const start = this.START_AT_PX;         // px from bottom where pull begins
+const range = this.PULL_RANGE_PX;       // px of "extra push" for full open
+
+let p = (start - bottomDistance) / range;  // 0 at bottomDistance=start, 1 at bottomDistance=start-range
+p = Math.max(0, Math.min(1, p));
 
       // If footer exists, make it feel tied to footer entering viewport
       if (this.footer) {
