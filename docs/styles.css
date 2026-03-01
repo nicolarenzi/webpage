@@ -1901,7 +1901,7 @@ iframe[src*="google.com/maps"] {
     cursor: grabbing;
   }
 
-}
+
 
 .about-sheet__handle-label {
   white-space: nowrap;       /* prevents "About" / "us" wrap */
