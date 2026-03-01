@@ -585,7 +585,7 @@ p = Math.max(0, Math.min(1, p));
         const footerP = 1 - (r.top / viewportH);
         const footerClamped = Math.max(0, Math.min(1, footerP));
         // Blend both signals; helps “pull” feel
-        p = Math.max(p, footerClamped * 0.85);
+        p = Math.max(p, footerClamped);
       }
 
       this.apply(p);
