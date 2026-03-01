@@ -815,24 +815,32 @@ class AboutSheet {
   }
 
   close() {
-    this.lastClosedAt = Date.now();
-    this.isLatched = false;
+  this.lastClosedAt = Date.now();
+  this.isLatched = false;
 
-    this.apply(0);
+  // fully hide immediately
+  this.apply(0);
 
-    // unlock scroll unless menu is open
-    const header = document.getElementById('main-header');
-    if (!header || !header.classList.contains('menu-open')) {
-      document.body.style.overflow = '';
-    }
-
-    // desktop: keep it armed only if footer is still visible
-    if (this.isDesktop()) {
-      // observer will re-arm when appropriate; for now we can drop to not-armed
-      this.sheet.classList.remove('is-armed');
-    }
+  // unlock scroll unless menu is open
+  const header = document.getElementById('main-header');
+  if (!header || !header.classList.contains('menu-open')) {
+    document.body.style.overflow = '';
   }
-}
+
+  // ✅ Desktop: don't permanently remove "armed" state.
+  // Re-arm after cooldown IF footer is still in view.
+  if (this.isDesktop()) {
+    // Keep it non-interactive during cooldown
+    this.setDesktopArmed(false);
+
+    window.setTimeout(() => {
+      // if user is still at the footer area, bring the tab back
+      if (this.isDesktop() && this.footerInView && !this.isLatched && !this.dragging) {
+        this.setDesktopArmed(true);  // will also apply the peek
+      }
+    }, this.CLOSE_COOLDOWN_MS + 50);
+  }
+}  
 
 
 // Initialize all functionality when DOM is loaded
