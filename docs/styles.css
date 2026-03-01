@@ -1795,51 +1795,71 @@ iframe[src*="google.com/maps"] {
 
 /* Desktop handle affordance */
 @media (min-width: 901px) {
-  .about-sheet__handle {
-    cursor: grab;
-    touch-action: none; /* important for pointer dragging */
-  }
-  .about-sheet.is-dragging .about-sheet__handle {
-    cursor: grabbing;
-  }
-}
-
-/* make the handle a real visible tab on desktop */
-
-@media (min-width: 901px) {
-  .about-sheet__handle {
-    width: 140px;
-    height: 54px;              /* bigger grab area */
-    border-radius: 14px 14px 0 0;
-    margin: -0.5rem auto 0.75rem;
-    display: grid;
-    place-items: center;
-    background: color-mix(in srgb, var(--color-card-bg) 92%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-border) 75%, transparent);
-    box-shadow: 0 10px 25px var(--color-shadow);
-    cursor: grab;
-    touch-action: none;
-    position: sticky;
-    top: 0; /* stays reachable while you scroll inside panel when open */
-    z-index: 2;
+  /* Stronger contrast + a "raised tab" look */
+  .about-sheet__panel {
+    background: color-mix(in srgb, var(--color-global-bg) 78%, var(--color-accent-2) 22%);
+    border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+    box-shadow:
+      0 28px 80px rgba(0,0,0,0.35),
+      0 2px 0 rgba(255,255,255,0.06) inset;
   }
 
-  /* inner “bar” look using a pseudo-element */
-  .about-sheet__handle::before {
+  /* Add an accent strip at the top edge of the panel */
+  .about-sheet__panel::before {
     content: "";
-    width: 56px;
-    height: 5px;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-accent-2) 25%, transparent);
+    position: sticky;
+    top: 0;
+    display: block;
+    height: 6px;
+    margin: -1.1rem -1.1rem 0.9rem; /* match your panel padding */
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent) 80%, transparent),
+      color-mix(in srgb, var(--color-link) 75%, transparent)
+    );
+    border-radius: 22px 22px 0 0;
     opacity: 0.9;
   }
 
-  /* optional label */
-  .about-sheet__handle::after {
-    content: "About us";
-    font-size: 0.75rem;
-    opacity: 0.75;
-    margin-top: 0.2rem;
+  /* Make the handle feel like a real draggable tab */
+  .about-sheet__handle {
+    position: relative; /* needed for ::before */
+    height: 56px;          
+    width: 220px;
+    margin: -0.9rem auto 0.9rem;
+    border-radius: 18px 18px 0 0;
+
+    display: grid;
+    place-items: center;
+
+    background: color-mix(in srgb, var(--color-global-bg) 70%, var(--color-accent-2) 30%);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+    box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+  }
+
+  /* the small grab bar */
+  .about-sheet__handle::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    width: 64px;
+    height: 7px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-accent) 65%, transparent);
+    opacity: 0.95;
+  }
+
+  /* label styling (your real HTML text) */
+  .about-sheet__handle-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+    text-transform: uppercase;
+    margin-top: 8px; /* pushes text below the grab bar */
   }
 
   .about-sheet.is-dragging .about-sheet__handle {
