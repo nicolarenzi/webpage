@@ -863,9 +863,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.applyBHoverEffect === 'function') {
         window.applyBHoverEffect(document.body);
     }
-
-    // Initialize party hat explosion feature
-    new PartyHatExplosion();
     
     // Add loading state management
     document.body.classList.add('loaded');
@@ -906,7 +903,7 @@ class PartyHatExplosion {
 
     init() {
         // Find the logo link and add click handler
-        const logoLink = document.querySelector('#main-header a[href="#"]');
+        const logoLink = document.querySelector('#main-header .header-logo');
         if (logoLink) {
             logoLink.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1140,3 +1137,7 @@ prefersReducedMotion.addEventListener('change', () => {
     btn.addEventListener('click', () => setActive(btn.dataset.bioTab));
   });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+  new PartyHatExplosion();
+});
