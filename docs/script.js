@@ -482,7 +482,6 @@ class MarkdownLoader {
 
 
 
-// About sheet (bottom pull-up) — opens when footer reaches viewport
 // About sheet (bottom pull-up) — scroll-driven near page end
 class AboutSheet {
   constructor() {
@@ -493,36 +492,46 @@ class AboutSheet {
     this.backdrop = this.sheet.querySelector('.about-sheet__backdrop');
     this.footer = document.querySelector('footer.site-footer');
     this.closeEls = this.sheet.querySelectorAll('[data-about-close]');
+    this.handle = this.sheet.querySelector('.about-sheet__handle');
 
     this.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // ===== Shared behavior =====
+    this.OPEN_THRESHOLD = 0.08;
+    this.LATCH_AT = 0.35;
 
-      // How much “extra scroll” near the bottom maps to fully open
+    this.isLatched = false;
+    this.lastClosedAt = 0;
+    this.CLOSE_COOLDOWN_MS = 900;
 
-this.START_AT_PX = 220;     // start a bit earlier than 140 (easier)
-this.PULL_RANGE_PX = 260;   // smaller range = less effort to reach open
+    this.progress = 0;
 
-// Behavior
-this.OPEN_THRESHOLD = 0.08; // enable pointer-events a bit later
-this.LATCH_AT = 0.35;       // once you reach 35%, it snaps open and stays open
+    // ===== Mobile (scroll-driven) tuning =====
+    this.START_AT_PX = 220;
+    this.PULL_RANGE_PX = 260;
 
-this.isLatched = false;
+    // ===== Desktop (drag) tuning =====
+    this.DESKTOP_DRAG_RANGE_PX = 420; // how many px of drag to go 0->1
+    this.desktopArmed = false;
+    this.dragging = false;
 
-this.CLOSE_COOLDOWN_MS = 900;  // after close, allow reopen again
-this.lastClosedAt = 0;
+    this.mqDesktop = window.matchMedia('(min-width: 901px)');
 
-this.ticking = false;
-this.progress = 0; // 0..1
+    this.init();
 
-this.init();
-      
+    // keep mode in sync if user resizes across breakpoint
+    this.mqDesktop.addEventListener?.('change', () => this.onModeChange());
+    window.addEventListener('resize', () => this.onModeChange(), { passive: true });
+  }
+
+  isDesktop() {
+    return this.mqDesktop.matches;
   }
 
   init() {
     // Close handlers
     this.closeEls.forEach(el => el.addEventListener('click', () => this.close()));
 
-    // ESC to close when open-ish
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.sheet.classList.contains('is-open')) this.close();
     });
@@ -530,138 +539,299 @@ this.init();
     // Initial paint
     this.apply(0);
 
-    // Scroll-driven updates
-    window.addEventListener('scroll', () => this.onScroll(), { passive: true });
-    window.addEventListener('resize', () => this.onScroll(), { passive: true });
-
-    // One kick after load
-    this.onScroll();
+    // Start correct mode
+    this.onModeChange();
   }
 
-  onScroll() {
-    if (this.ticking) return;
-    this.ticking = true;
+  onModeChange() {
+    // Reset state when switching modes
+    this.dragging = false;
+    this.isLatched = false;
+    this.desktopArmed = false;
+    this.sheet.classList.remove('is-armed', 'is-dragging', 'is-open');
+    document.body.style.overflow = '';
 
-    requestAnimationFrame(() => {
-      this.ticking = false;
+    // Remove any listeners/observers from the other mode
+    this.teardownMobile();
+    this.teardownDesktop();
 
-      // Don’t pop if the mobile menu is open (avoid “two overlays”)
-      const header = document.getElementById('main-header');
-      if (header && header.classList.contains('menu-open')) {
-        this.apply(0);
-        return;
-      }
+    // Re-init the active mode
+    if (this.isDesktop()) {
+      this.initDesktop();
+    } else {
+      this.initMobile();
+    }
+  }
 
-      // If user just closed it, don’t reopen immediately
-      if (Date.now() - this.lastClosedAt < this.CLOSE_COOLDOWN_MS) {
-        this.apply(0);
-        return;
-      }
+  /* =========================
+     MOBILE MODE (your current idea)
+     ========================= */
+  initMobile() {
+    this._onScroll = () => this.onScrollMobile();
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onScroll, { passive: true });
+    this.onScrollMobile();
+  }
 
-      // Compute "how close to bottom" we are
-      const scrollY = window.scrollY || window.pageYOffset || 0;
-      const viewportH = window.innerHeight || 0;
-      const docH = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight
+  teardownMobile() {
+    if (this._onScroll) {
+      window.removeEventListener('scroll', this._onScroll);
+      window.removeEventListener('resize', this._onScroll);
+      this._onScroll = null;
+    }
+  }
+
+  onScrollMobile() {
+    // Don’t pop if the mobile menu is open (avoid “two overlays”)
+    const header = document.getElementById('main-header');
+    if (header && header.classList.contains('menu-open')) {
+      this.apply(0);
+      return;
+    }
+
+    // cooldown after close
+    if (Date.now() - this.lastClosedAt < this.CLOSE_COOLDOWN_MS) {
+      this.apply(0);
+      return;
+    }
+
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const viewportH = window.innerHeight || 0;
+    const docH = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
+
+    const bottomDistance = docH - (scrollY + viewportH);
+
+    const start = this.START_AT_PX;
+    const range = this.PULL_RANGE_PX;
+
+    let p = (start - bottomDistance) / range;
+    p = Math.max(0, Math.min(1, p));
+
+    if (this.footer) {
+      const r = this.footer.getBoundingClientRect();
+      const footerP = 1 - (r.top / viewportH);
+      const footerClamped = Math.max(0, Math.min(1, footerP));
+      p = Math.max(p, footerClamped * 0.85);
+    }
+
+    // mobile can latch too
+    if (!this.isLatched && p >= this.LATCH_AT) {
+      this.isLatched = true;
+    }
+    if (this.isLatched) p = 1;
+
+    this.apply(p);
+  }
+
+  /* =========================
+     DESKTOP MODE (IntersectionObserver + drag handle)
+     ========================= */
+  initDesktop() {
+    // Arm when footer is visible enough
+    if (this.footer && 'IntersectionObserver' in window) {
+      this._io = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          // arm when footer starts entering view
+          const armed = entry.isIntersecting || entry.intersectionRatio > 0;
+          this.setDesktopArmed(armed);
+        },
+        { root: null, threshold: [0, 0.05, 0.15] }
       );
+      this._io.observe(this.footer);
+    } else {
+      // fallback: always armed if no IO
+      this.setDesktopArmed(true);
+    }
 
-      const bottomDistance = docH - (scrollY + viewportH); // px remaining to bottom
+    // Drag listeners
+    if (this.handle) {
+      this._onPointerDown = (e) => this.onPointerDown(e);
+      this.handle.addEventListener('pointerdown', this._onPointerDown);
+    }
 
-      // When bottomDistance <= PULL_RANGE_PX => start opening
-// Start only very near the bottom
-const start = this.START_AT_PX;         // px from bottom where pull begins
-const range = this.PULL_RANGE_PX;       // px of "extra push" for full open
+    // optional: allow dragging by grabbing the top area of the panel too
+    // (uncomment if you want)
+    // this.panel?.addEventListener('pointerdown', (e) => this.onPointerDown(e));
+  }
 
-let p = (start - bottomDistance) / range;  // 0 at bottomDistance=start, 1 at bottomDistance=start-range
-p = Math.max(0, Math.min(1, p));
+  teardownDesktop() {
+    if (this._io) {
+      try { this._io.disconnect(); } catch {}
+      this._io = null;
+    }
+    if (this.handle && this._onPointerDown) {
+      this.handle.removeEventListener('pointerdown', this._onPointerDown);
+      this._onPointerDown = null;
+    }
+    this.removeDragMoveUp();
+  }
 
-      // If footer exists, make it feel tied to footer entering viewport
-      if (this.footer) {
-        const r = this.footer.getBoundingClientRect();
-        // r.top <= viewportH means footer is entering
-        const footerP = 1 - (r.top / viewportH);
-        const footerClamped = Math.max(0, Math.min(1, footerP));
-        // Blend both signals; helps “pull” feel
-        p = Math.max(p, footerClamped);
+  setDesktopArmed(armed) {
+    // Don’t arm if just closed (prevents instant re-open)
+    if (Date.now() - this.lastClosedAt < this.CLOSE_COOLDOWN_MS) {
+      armed = false;
+    }
+
+    this.desktopArmed = armed;
+
+    if (armed) {
+      this.sheet.classList.add('is-armed');
+
+      // tiny “peek” so user notices it’s draggable (optional)
+      if (!this.isLatched && !this.dragging) {
+        this.apply(0.06);
       }
-
-      this.apply(p);
-    });
+    } else {
+      this.sheet.classList.remove('is-armed');
+      if (!this.isLatched && !this.dragging) {
+        this.apply(0);
+      }
+    }
   }
 
-apply(p) {
-  // If latched, stay fully open
-  if (this.isLatched) {
-    p = 1;
+  onPointerDown(e) {
+    if (!this.isDesktop()) return;
+    if (!this.desktopArmed && !this.isLatched) return; // only draggable when armed or already open
+
+    // don’t start drag from links/buttons inside panel
+    const t = e.target;
+    if (t && (t.closest('a') || t.closest('button'))) return;
+
+    this.dragging = true;
+    this.sheet.classList.add('is-dragging');
+
+    this.startY = e.clientY;
+    this.startProgress = this.isLatched ? 1 : this.progress;
+
+    // capture pointer so we keep receiving move/up
+    try { this.handle?.setPointerCapture?.(e.pointerId); } catch {}
+
+    this._onPointerMove = (ev) => this.onPointerMove(ev);
+    this._onPointerUp = (ev) => this.onPointerUp(ev);
+
+    window.addEventListener('pointermove', this._onPointerMove, { passive: true });
+    window.addEventListener('pointerup', this._onPointerUp, { passive: true });
+    window.addEventListener('pointercancel', this._onPointerUp, { passive: true });
   }
 
-  this.progress = p;
+  removeDragMoveUp() {
+    if (this._onPointerMove) {
+      window.removeEventListener('pointermove', this._onPointerMove);
+      this._onPointerMove = null;
+    }
+    if (this._onPointerUp) {
+      window.removeEventListener('pointerup', this._onPointerUp);
+      window.removeEventListener('pointercancel', this._onPointerUp);
+      this._onPointerUp = null;
+    }
+  }
 
-  // Map progress to translateY: 105% (hidden) -> 0% (open)
-  const y = (105 - (105 * p)).toFixed(2) + '%';
+  onPointerMove(e) {
+    if (!this.dragging) return;
 
-  // Fade in gently; keep backdrop a bit subtler than panel
-  const alpha = (p <= 0 ? 0 : Math.min(1, p * 1.15)).toFixed(3);
-  const backdrop = (Math.min(1, p * 0.95)).toFixed(3);
+    const dy = this.startY - e.clientY; // dragging up => positive
+    const deltaP = dy / this.DESKTOP_DRAG_RANGE_PX;
 
-  this.sheet.style.setProperty('--sheet-y', y);
-  this.sheet.style.setProperty('--sheet-alpha', alpha);
-  this.sheet.style.setProperty('--sheet-backdrop', backdrop);
+    let p = this.startProgress + deltaP;
+    p = Math.max(0, Math.min(1, p));
 
-  // Latch once pulled enough (and not already latched)
-  if (!this.isLatched && p >= this.LATCH_AT) {
+    // while dragging, don’t auto-latch until release
+    this.isLatched = false;
+    this.apply(p);
+  }
+
+  onPointerUp(e) {
+    if (!this.dragging) return;
+
+    this.dragging = false;
+    this.sheet.classList.remove('is-dragging');
+    this.removeDragMoveUp();
+
+    // snap decision
+    const p = this.progress;
+
+    if (p >= this.LATCH_AT) {
+      this.open();
+    } else {
+      this.close();
+    }
+  }
+
+  open() {
     this.isLatched = true;
+    this.apply(1);
     this.sheet.classList.add('is-open');
     this.sheet.setAttribute('aria-hidden', 'false');
-
-    // Lock background scroll only when latched
     document.body.style.overflow = 'hidden';
 
-    if (!this.prefersReduced && !this._focusedOnce) {
-      this._focusedOnce = true;
+    if (!this.prefersReduced) {
       setTimeout(() => this.panel?.focus?.(), 50);
     }
-    return;
   }
 
-  // Normal “peek” behavior before latch
-  const openEnough = p >= this.OPEN_THRESHOLD;
+  /* =========================
+     SHARED APPLY + CLOSE
+     ========================= */
+  apply(p) {
+    // If latched, stay fully open
+    if (this.isLatched) p = 1;
 
-  if (openEnough) {
-    this.sheet.classList.add('is-open');
-    this.sheet.setAttribute('aria-hidden', 'false');
-  } else {
-    this.sheet.classList.remove('is-open');
-    this.sheet.setAttribute('aria-hidden', 'true');
-    this._focusedOnce = false;
+    this.progress = p;
 
-    // Only unlock if mobile menu is not open
+    const y = (105 - (105 * p)).toFixed(2) + '%';
+    const alpha = (p <= 0 ? 0 : Math.min(1, p * 1.15)).toFixed(3);
+    const backdrop = (Math.min(1, p * 0.95)).toFixed(3);
+
+    this.sheet.style.setProperty('--sheet-y', y);
+    this.sheet.style.setProperty('--sheet-alpha', alpha);
+    this.sheet.style.setProperty('--sheet-backdrop', backdrop);
+
+    const openEnough = p >= this.OPEN_THRESHOLD;
+
+    if (openEnough) {
+      this.sheet.classList.add('is-open');
+      this.sheet.setAttribute('aria-hidden', 'false');
+
+      // Only lock scroll if it’s fully open / latched (desktop) or sufficiently open (mobile latch)
+      if (this.isLatched || (!this.isDesktop() && p > 0.35)) {
+        document.body.style.overflow = 'hidden';
+      }
+    } else {
+      this.sheet.classList.remove('is-open');
+      this.sheet.setAttribute('aria-hidden', 'true');
+
+      // unlock scroll unless mobile menu is open
+      const header = document.getElementById('main-header');
+      if (!header || !header.classList.contains('menu-open')) {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
+  close() {
+    this.lastClosedAt = Date.now();
+    this.isLatched = false;
+
+    this.apply(0);
+
+    // unlock scroll unless menu is open
     const header = document.getElementById('main-header');
     if (!header || !header.classList.contains('menu-open')) {
       document.body.style.overflow = '';
     }
+
+    // desktop: keep it armed only if footer is still visible
+    if (this.isDesktop()) {
+      // observer will re-arm when appropriate; for now we can drop to not-armed
+      this.sheet.classList.remove('is-armed');
+    }
   }
-}
-
-close() {
-  this.lastClosedAt = Date.now();
-
-  // Unlatch
-  this.isLatched = false;
-  this._focusedOnce = false;
-
-  // Snap closed immediately
-  this.apply(0);
-
-  // unlock scroll (unless mobile menu is open)
-  const header = document.getElementById('main-header');
-  if (!header || !header.classList.contains('menu-open')) {
-    document.body.style.overflow = '';
-  }
-}
 }
 
 
