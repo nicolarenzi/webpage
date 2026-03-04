@@ -1113,6 +1113,73 @@ html {
     }
 }
 
+/* =========================
+   Further readings layout
+   ========================= */
+
+.reading-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  align-items: start;
+}
+
+.reading-block {
+  background: color-mix(in srgb, var(--color-card-bg) 75%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.reading-block__header {
+  margin-bottom: 0.75rem;
+}
+
+.reading-block__title {
+  margin: 0 !important;
+  font-size: 1.1rem;
+  color: var(--color-accent-2);
+}
+
+/* Tighten cards inside blocks */
+.reading-item.publication-card {
+  margin-bottom: 1rem;
+}
+
+.reading-item.publication-card:last-child {
+  margin-bottom: 0;
+}
+
+/* Little category kicker (sound ecology, ecology, etc.) */
+.reading-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-accent-2) 70%, transparent);
+  margin-bottom: 0.35rem;
+}
+
+/* DOI line styling */
+.reading-doi a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.doi-forthcoming {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Mobile: stack blocks */
+@media (max-width: 900px) {
+  .reading-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Party Hat Explosion Animation Styles */
 .party-hat {
     position: fixed;
