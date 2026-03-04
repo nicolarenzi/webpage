@@ -1715,7 +1715,7 @@ background: var(--color-card-bg);
   transform: translateY(-1px);
 }
 
-
+/* this is the tap for info for the poem */
 .poem-tap{
   display:inline-block;
   padding: 0.12rem 0.35rem;
@@ -1739,6 +1739,15 @@ background: var(--color-card-bg);
 .poem-tap:focus-visible{
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+}
+.poem-tap--block{
+  display: inline-block;
+  padding: 0.35rem 0.55rem;
+  line-height: 1.35;
+}
+
+.poem-tap--block > div{
+  margin: 0;           /* tight lines */
 }
 
 /* the popup sticker */
