@@ -863,6 +863,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.applyBHoverEffect === 'function') {
         window.applyBHoverEffect(document.body);
     }
+
+// Poem explained widget helpers
+document.addEventListener('DOMContentLoaded', () => {
+  const poemFab = document.querySelector('.poem-fab');
+  const poemClose = document.querySelector('[data-poem-close]');
+  const poemDrawer = document.querySelector('.poem-drawer');
+  const factDrawer = document.querySelector('.fact-drawer');
+
+  // Close desktop panel with the X
+  if (poemFab && poemClose) {
+    poemClose.addEventListener('click', () => {
+      poemFab.removeAttribute('open');
+    });
+  }
+
+  // Mobile: opening one drawer closes the other
+  function wireMutualClose(a, b) {
+    if (!a || !b) return;
+    a.addEventListener('toggle', () => {
+      if (a.open) b.removeAttribute('open');
+    });
+  }
+  wireMutualClose(poemDrawer, factDrawer);
+  wireMutualClose(factDrawer, poemDrawer);
+
+  // ESC closes desktop popover
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && poemFab?.open) poemFab.removeAttribute('open');
+  });
+
     
     // Add loading state management
     document.body.classList.add('loaded');
@@ -872,6 +902,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🎉 Click the logo for a party surprise!');
     console.log('Built with inspiration from astro-theme-cactus');
 });
+
+
+
+
 
 // Handle page visibility changes (pause animations when not visible)
 document.addEventListener('visibilitychange', () => {
