@@ -1715,56 +1715,65 @@ background: var(--color-card-bg);
   transform: translateY(-1px);
 }
 
-/* ---------- Mobile: reuse fact-drawer look, but separate class ---------- */
-.poem-drawer {
-  position: fixed;
-  left: 1rem;
-  right: 1rem;
 
-  /* IMPORTANT: sit above your existing "Did you know?" drawer */
-  bottom: calc(4.5rem + 72px); /* adjust if you want more/less gap */
-
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-
-  box-shadow: 0 15px 40px var(--color-shadow);
-  overflow: hidden;
-  z-index: 52; /* above the fact drawer */
-}
-
-/* remove default marker */
-.poem-drawer > summary { list-style: none; }
-.poem-drawer > summary::-webkit-details-marker { display: none; }
-
-.poem-drawer-handle {
-  padding: 0.85rem 1rem;
-  font-weight: 600;
-  letter-spacing: 0.4px;
+.poem-tap{
+  display:inline-block;
+  padding: 0.12rem 0.35rem;
+  border-radius: 10px;
   cursor: pointer;
   user-select: none;
+
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
 }
 
-.poem-drawer-content {
-  padding: 0 1rem 1rem;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  max-height: 45vh;
-  overflow: auto;
+.poem-tap:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px var(--color-shadow);
 }
 
-.poem-drawer[open] .poem-drawer-content {
-  opacity: 1;
+.poem-tap:focus-visible{
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
-/* Dark mode: match your near-black drawer look on mobile */
-@media (max-width: 900px) {
-  [data-theme="dark"] .poem-drawer {
-    background: #0b0f19;
-    border-color: #1f2937;
-  }
+/* the popup sticker */
+.poem-sticker{
+  position: fixed;
+  z-index: 200; /* above your widgets */
+  max-width: min(320px, calc(100vw - 2rem));
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+
+  background: color-mix(in srgb, var(--color-card-bg) 92%, transparent);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 20px 60px var(--color-shadow);
+
+  font-style: normal; /* keeps note readable even if poem is italic */
 }
 
+[data-theme="dark"] .poem-sticker{
+  background: #0b0f19;
+  border-color: #1f2937;
+}
+
+.poem-sticker__close{
+  float: right;
+  margin-left: 0.75rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background: color-mix(in srgb, var(--color-global-bg) 30%, transparent);
+  color: var(--color-accent-2);
+  cursor: pointer;
+  line-height: 1;
+  font-size: 1.1rem;
+}
 
 
 /* --- Responsive YouTube embeds without changing HTML --- */
