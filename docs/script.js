@@ -1178,5 +1178,70 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+(function () {
+  let stickerEl = null;
+
+  function closeSticker() {
+    if (stickerEl && stickerEl.parentNode) stickerEl.parentNode.removeChild(stickerEl);
+    stickerEl = null;
+  }
+
+  function openSticker(targetEl, text, clientX, clientY) {
+    closeSticker();
+
+    stickerEl = document.createElement('div');
+    stickerEl.className = 'poem-sticker';
+    stickerEl.innerHTML = `
+      <button class="poem-sticker__close" type="button" aria-label="Close">×</button>
+      <div>${text}</div>
+    `;
+
+    document.body.appendChild(stickerEl);
+
+    // Position near click/tap, but keep inside viewport
+    const pad = 12;
+    const rect = stickerEl.getBoundingClientRect();
+    let x = (clientX ?? (targetEl.getBoundingClientRect().left + 20));
+    let y = (clientY ?? (targetEl.getBoundingClientRect().bottom + 10));
+
+    if (x + rect.width + pad > window.innerWidth) x = window.innerWidth - rect.width - pad;
+    if (y + rect.height + pad > window.innerHeight) y = window.innerHeight - rect.height - pad;
+    if (x < pad) x = pad;
+    if (y < pad) y = pad;
+
+    stickerEl.style.left = `${x}px`;
+    stickerEl.style.top = `${y}px`;
+
+    stickerEl.querySelector('.poem-sticker__close')?.addEventListener('click', closeSticker);
+  }
+
+  // Delegate clicks for any .poem-tap element
+  document.addEventListener('click', (e) => {
+    const tap = e.target.closest?.('.poem-tap');
+    if (!tap) {
+      // close if clicking outside the sticker
+      if (stickerEl && !e.target.closest?.('.poem-sticker')) closeSticker();
+      return;
+    }
+
+    e.preventDefault();
+    const note = tap.getAttribute('data-note') || '';
+    openSticker(tap, note, e.clientX, e.clientY);
+  });
+
+  // Keyboard: Enter/Space opens; Esc closes
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSticker();
+
+    const active = document.activeElement;
+    if (active && active.classList?.contains('poem-tap') && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      const note = active.getAttribute('data-note') || '';
+      openSticker(active, note);
+    }
+  });
+})();
+
+
 
 
