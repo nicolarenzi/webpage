@@ -1616,6 +1616,156 @@ background: var(--color-card-bg);
 
 
 
+/* =========================
+   Poem explained widget
+   ========================= */
+
+/* Desktop/mobile flip (match your 900px breakpoint) */
+.poem-desktop { display: block; }
+.poem-mobile  { display: none; }
+
+@media (max-width: 900px) {
+  .poem-desktop { display: none; }
+  .poem-mobile  { display: block; }
+}
+
+/* ---------- Desktop: bottom-left floating button + panel ---------- */
+.poem-fab {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 55; /* slightly above your fact widgets (z=50) */
+}
+
+.poem-fab > summary { list-style: none; }
+.poem-fab > summary::-webkit-details-marker { display: none; }
+
+.poem-fab__button {
+  cursor: pointer;
+  user-select: none;
+
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 15px 40px var(--color-shadow);
+
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--color-accent-2);
+}
+
+.poem-fab__button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 25px 60px var(--color-shadow);
+}
+
+/* The panel that appears above the button */
+.poem-fab__panel {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.75rem);
+
+  width: min(420px, calc(100vw - 2rem));
+  max-height: 50vh;
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  padding: 1rem 1rem 0.9rem;
+  border-radius: 18px;
+
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 20px 65px var(--color-shadow);
+
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Show panel when open */
+.poem-fab[open] .poem-fab__panel {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Small close X inside the panel */
+.poem-fab__close {
+  position: sticky;
+  bottom: 0;
+  float: right;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background: color-mix(in srgb, var(--color-global-bg) 30%, transparent);
+  color: var(--color-accent-2);
+
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.poem-fab__close:hover {
+  transform: translateY(-1px);
+}
+
+/* ---------- Mobile: reuse fact-drawer look, but separate class ---------- */
+.poem-drawer {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+
+  /* IMPORTANT: sit above your existing "Did you know?" drawer */
+  bottom: calc(4.5rem + 72px); /* adjust if you want more/less gap */
+
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+
+  box-shadow: 0 15px 40px var(--color-shadow);
+  overflow: hidden;
+  z-index: 52; /* above the fact drawer */
+}
+
+/* remove default marker */
+.poem-drawer > summary { list-style: none; }
+.poem-drawer > summary::-webkit-details-marker { display: none; }
+
+.poem-drawer-handle {
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.poem-drawer-content {
+  padding: 0 1rem 1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  max-height: 45vh;
+  overflow: auto;
+}
+
+.poem-drawer[open] .poem-drawer-content {
+  opacity: 1;
+}
+
+/* Dark mode: match your near-black drawer look on mobile */
+@media (max-width: 900px) {
+  [data-theme="dark"] .poem-drawer {
+    background: #0b0f19;
+    border-color: #1f2937;
+  }
+}
+
+
 
 /* --- Responsive YouTube embeds without changing HTML --- */
 iframe[src*="youtube.com/embed"],
