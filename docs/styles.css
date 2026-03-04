@@ -2019,4 +2019,7 @@ iframe[src*="google.com/maps"] {
   }
 }
 
-[data-theme="dark"] img.invert-on-dark { filter: invert(1); }
+/* Invert selected logos in dark mode */
+[data-theme="dark"] img.invert-on-dark {
+  filter: invert(1) !important;
+}
