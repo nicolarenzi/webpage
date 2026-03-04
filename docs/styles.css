@@ -1615,6 +1615,95 @@ background: var(--color-card-bg);
 }
 
 
+/* =========================
+   Poem pull-out (desktop, left)
+   ========================= */
+
+/* Desktop only */
+.poem-desktop { display: block; }
+@media (max-width: 900px) {
+  .poem-desktop { display: none; }
+}
+
+.poem-slide {
+  position: fixed;
+  left: 0;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 60px;
+  overflow: hidden;
+
+  display: flex;
+
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+
+  box-shadow: 0 15px 40px var(--color-shadow);
+  transition: width 0.35s ease, box-shadow 0.35s ease;
+  z-index: 55;
+
+  max-height: 60vh;
+  will-change: width;
+}
+
+.poem-slide:hover {
+  width: 380px; /* adjust to taste */
+  box-shadow: 0 25px 60px var(--color-shadow);
+}
+
+.poem-slide-handle {
+  writing-mode: vertical-rl;
+  transform: rotate(0deg);
+  padding: 1rem 0.55rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.9;
+  min-width: 60px;
+}
+
+.poem-slide-content {
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  max-height: 60vh;
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  flex: 1;
+}
+
+.poem-slide:hover .poem-slide-content {
+  opacity: 1;
+}
+
+.poem-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent-2);
+}
+
+.poem-text {
+  margin: 0;
+  line-height: 1.55;
+  opacity: 0.95;
+}
+
+/* Optional: if About sheet is open, dim the poem so overlays don’t fight */
+@media (min-width: 901px) {
+  .about-sheet.is-open ~ .poem-slide {
+    opacity: 0.15;
+    pointer-events: none;
+  }
+}
+
+
+
 /* --- Responsive YouTube embeds without changing HTML --- */
 iframe[src*="youtube.com/embed"],
 iframe[src*="youtube-nocookie.com/embed"] {
