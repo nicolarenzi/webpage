@@ -1143,3 +1143,172 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   new PartyHatExplosion();
 });
+
+
+
+// Poem sheet (desktop pull from left) — always-visible handle
+class PoemSheet {
+  constructor() {
+    this.sheet = document.getElementById('poemSheet');
+    if (!this.sheet) return;
+
+    this.panel = this.sheet.querySelector('.poem-sheet__panel');
+    this.backdrop = this.sheet.querySelector('.poem-sheet__backdrop');
+    this.closeEls = this.sheet.querySelectorAll('[data-poem-close]');
+    this.handle = this.sheet.querySelector('.poem-sheet__handle');
+
+    this.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Tuning
+    this.OPEN_THRESHOLD = 0.06;  // when to consider it "open enough" to show backdrop
+    this.LATCH_AT = 0.35;        // release past this => snap open
+    this.DRAG_RANGE_PX = 420;    // how many px drag to go 0->1
+
+    this.dragging = false;
+    this.isLatched = false;
+    this.progress = 0;
+
+    this.init();
+  }
+
+  init() {
+    // Close handlers (backdrop + X)
+    this.closeEls.forEach(el => el.addEventListener('click', () => this.close()));
+
+    // ESC closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.sheet.classList.contains('is-open')) {
+        this.close();
+      }
+    });
+
+    // Initial paint: mostly hidden but handle is visible because it's attached to the panel
+    this.apply(0);
+
+    // Pointer drag
+    if (this.handle) {
+      this._onPointerDown = (e) => this.onPointerDown(e);
+      this.handle.addEventListener('pointerdown', this._onPointerDown);
+    }
+  }
+
+  onPointerDown(e) {
+    // don’t start drag from links/buttons inside panel
+    const t = e.target;
+    if (t && (t.closest('a') || t.closest('button'))) return;
+
+    this.dragging = true;
+    this.sheet.classList.add('is-dragging');
+
+    this.startX = e.clientX;
+    this.startProgress = this.isLatched ? 1 : this.progress;
+
+    // capture pointer
+    try { this.handle?.setPointerCapture?.(e.pointerId); } catch {}
+
+    this._onPointerMove = (ev) => this.onPointerMove(ev);
+    this._onPointerUp = (ev) => this.onPointerUp(ev);
+
+    window.addEventListener('pointermove', this._onPointerMove, { passive: true });
+    window.addEventListener('pointerup', this._onPointerUp, { passive: true });
+    window.addEventListener('pointercancel', this._onPointerUp, { passive: true });
+  }
+
+  onPointerMove(e) {
+    if (!this.dragging) return;
+
+    const dx = e.clientX - this.startX; // dragging right => positive
+    const deltaP = dx / this.DRAG_RANGE_PX;
+
+    let p = this.startProgress + deltaP;
+    p = Math.max(0, Math.min(1, p));
+
+    // while dragging, don’t auto-latch until release
+    this.isLatched = false;
+    this.apply(p);
+  }
+
+  onPointerUp(e) {
+    if (!this.dragging) return;
+
+    this.dragging = false;
+    this.sheet.classList.remove('is-dragging');
+    this.removeDragMoveUp();
+
+    const p = this.progress;
+
+    if (p >= this.LATCH_AT) {
+      this.open();
+    } else {
+      this.close();
+    }
+  }
+
+  removeDragMoveUp() {
+    if (this._onPointerMove) {
+      window.removeEventListener('pointermove', this._onPointerMove);
+      this._onPointerMove = null;
+    }
+    if (this._onPointerUp) {
+      window.removeEventListener('pointerup', this._onPointerUp);
+      window.removeEventListener('pointercancel', this._onPointerUp);
+      this._onPointerUp = null;
+    }
+  }
+
+  open() {
+    this.isLatched = true;
+    this.apply(1);
+    this.sheet.classList.add('is-open');
+    this.sheet.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (!this.prefersReduced) {
+      setTimeout(() => this.panel?.focus?.(), 50);
+    }
+  }
+
+  close() {
+    this.isLatched = false;
+    this.apply(0);
+    this.sheet.classList.remove('is-open');
+    this.sheet.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  apply(p) {
+    if (this.isLatched) p = 1;
+
+    this.progress = p;
+
+    // 0 => hidden at -92%, 1 => open at 0%
+    const hidden = -92;
+    const x = (hidden + (Math.abs(hidden) * p)).toFixed(2) + '%';
+
+    const alpha = (p <= 0 ? 1 : 1).toFixed(3); // keep visible so the handle is always visible
+    const backdrop = (Math.min(1, p * 0.95)).toFixed(3);
+
+    this.sheet.style.setProperty('--poem-x', x);
+    this.sheet.style.setProperty('--poem-alpha', alpha);
+    this.sheet.style.setProperty('--poem-backdrop', backdrop);
+
+    const openEnough = p >= this.OPEN_THRESHOLD;
+
+    if (openEnough) {
+      this.sheet.classList.add('is-open');
+      this.sheet.setAttribute('aria-hidden', 'false');
+    } else {
+      // Keep pointer-events off unless actually opening (so page is usable)
+      this.sheet.classList.remove('is-open');
+      this.sheet.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // IMPORTANT:
+    // We still want the handle clickable even when "closed".
+    // So we selectively enable pointer-events on the panel always.
+    this.panel.style.pointerEvents = 'auto';
+    // But the sheet wrapper remains pointer-events: none unless open;
+    // handle is inside panel, so it remains interactive.
+  }
+}
