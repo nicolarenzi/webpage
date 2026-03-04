@@ -2018,3 +2018,5 @@ iframe[src*="google.com/maps"] {
     gap: 1.5rem;
   }
 }
+
+[data-theme="dark"] img.invert-on-dark { filter: invert(1); }
