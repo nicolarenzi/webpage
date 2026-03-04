@@ -2017,7 +2017,6 @@ iframe[src*="google.com/maps"] {
   .breakout .reading-grid {
     gap: 1.5rem;
   }
-}
 
 /* Invert selected logos in dark mode */
 [data-theme="dark"] img.invert-on-dark {
