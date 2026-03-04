@@ -1997,3 +1997,25 @@ iframe[src*="google.com/maps"] {
   opacity: 0.8;
   transform: translateY(-1px);
 }
+
+/* =========================
+   Breakout section (wider on desktop)
+   ========================= */
+.breakout {
+  /* keep normal width on mobile */
+}
+
+@media (min-width: 1024px) {
+  .breakout {
+    /* allow this section to exceed the 57.6rem main container */
+    width: min(1100px, calc(100vw - 4rem));
+    max-width: none;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Optional: slightly larger gutter between the two columns */
+  .breakout .reading-grid {
+    gap: 1.5rem;
+  }
+}
