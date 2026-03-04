@@ -2007,7 +2007,7 @@ iframe[src*="google.com/maps"] {
 
 @media (min-width: 1024px) {
   .breakout {
-    width: calc(100vw - 3rem); /* ~1.5rem margin each side */
+    width: min(1280px, calc(100vw - 3rem));
     max-width: none;
     margin-left: 50%;
     transform: translateX(-50%);
