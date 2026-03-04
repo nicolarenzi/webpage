@@ -1180,14 +1180,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 (function () {
   let stickerEl = null;
+  let anchorEl = null;
+  let rafId = null;
 
   function closeSticker() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    anchorEl = null;
+
     if (stickerEl && stickerEl.parentNode) stickerEl.parentNode.removeChild(stickerEl);
     stickerEl = null;
   }
 
-  function openSticker(targetEl, text, clientX, clientY) {
+  function positionSticker() {
+    if (!stickerEl || !anchorEl) return;
+
+    const pad = 12;
+    const a = anchorEl.getBoundingClientRect();
+
+    // Default: stick to the anchor (bottom-left-ish)
+    let x = a.left;
+    let y = a.bottom + 10;
+
+    // Measure sticker after it exists
+    const s = stickerEl.getBoundingClientRect();
+
+    // Keep inside viewport
+    if (x + s.width + pad > window.innerWidth) x = window.innerWidth - s.width - pad;
+    if (x < pad) x = pad;
+
+    // If there's no space below, place above the verses
+    if (y + s.height + pad > window.innerHeight) y = a.top - s.height - 10;
+    if (y < pad) y = pad;
+
+    stickerEl.style.left = `${x}px`;
+    stickerEl.style.top = `${y}px`;
+  }
+
+  function startFollowing() {
+    if (rafId) return;
+    const tick = () => {
+      positionSticker();
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function openSticker(targetEl, text) {
     closeSticker();
+
+    anchorEl = targetEl;
 
     stickerEl = document.createElement('div');
     stickerEl.className = 'poem-sticker';
@@ -1198,19 +1240,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.appendChild(stickerEl);
 
-    // Position near click/tap, but keep inside viewport
-    const pad = 12;
-    const rect = stickerEl.getBoundingClientRect();
-    let x = (clientX ?? (targetEl.getBoundingClientRect().left + 20));
-    let y = (clientY ?? (targetEl.getBoundingClientRect().bottom + 10));
-
-    if (x + rect.width + pad > window.innerWidth) x = window.innerWidth - rect.width - pad;
-    if (y + rect.height + pad > window.innerHeight) y = window.innerHeight - rect.height - pad;
-    if (x < pad) x = pad;
-    if (y < pad) y = pad;
-
-    stickerEl.style.left = `${x}px`;
-    stickerEl.style.top = `${y}px`;
+    // Initial placement + start following on scroll/resize
+    positionSticker();
+    startFollowing();
 
     stickerEl.querySelector('.poem-sticker__close')?.addEventListener('click', closeSticker);
   }
@@ -1218,15 +1250,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delegate clicks for any .poem-tap element
   document.addEventListener('click', (e) => {
     const tap = e.target.closest?.('.poem-tap');
+
+    // Click outside closes (unless clicking the sticker itself)
     if (!tap) {
-      // close if clicking outside the sticker
       if (stickerEl && !e.target.closest?.('.poem-sticker')) closeSticker();
       return;
     }
 
     e.preventDefault();
     const note = tap.getAttribute('data-note') || '';
-    openSticker(tap, note, e.clientX, e.clientY);
+    openSticker(tap, note);
   });
 
   // Keyboard: Enter/Space opens; Esc closes
@@ -1234,12 +1267,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeSticker();
 
     const active = document.activeElement;
-    if (active && active.classList?.contains('poem-tap') && (e.key === 'Enter' || e.key === ' ')) {
+    if (
+      active &&
+      active.classList?.contains('poem-tap') &&
+      (e.key === 'Enter' || e.key === ' ')
+    ) {
       e.preventDefault();
       const note = active.getAttribute('data-note') || '';
       openSticker(active, note);
     }
   });
+
+  // Safety: reposition on resize/orientation change
+  window.addEventListener('resize', () => {
+    if (stickerEl) positionSticker();
+  }, { passive: true });
 })();
 
 
