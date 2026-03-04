@@ -1615,93 +1615,6 @@ background: var(--color-card-bg);
 }
 
 
-/* =========================
-   Poem pull-out (desktop, left)
-   ========================= */
-
-/* Desktop only */
-.poem-desktop { display: block; }
-@media (max-width: 900px) {
-  .poem-desktop { display: none; }
-}
-
-.poem-slide {
-  position: fixed;
-  left: 0;
-  top: 45%;
-  transform: translateY(-50%);
-  width: 60px;
-  overflow: hidden;
-
-  display: flex;
-
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-left: none;
-  border-radius: 0 16px 16px 0;
-
-  box-shadow: 0 15px 40px var(--color-shadow);
-  transition: width 0.35s ease, box-shadow 0.35s ease;
-  z-index: 55;
-
-  max-height: 60vh;
-  will-change: width;
-}
-
-.poem-slide:hover {
-  width: 380px; /* adjust to taste */
-  box-shadow: 0 25px 60px var(--color-shadow);
-}
-
-.poem-slide-handle {
-  writing-mode: vertical-rl;
-  transform: rotate(0deg);
-  padding: 1rem 0.55rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  user-select: none;
-  opacity: 0.9;
-  min-width: 60px;
-}
-
-.poem-slide-content {
-  padding: 1rem;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-
-  max-height: 60vh;
-  overflow: auto;
-  overscroll-behavior: contain;
-
-  flex: 1;
-}
-
-.poem-slide:hover .poem-slide-content {
-  opacity: 1;
-}
-
-.poem-title {
-  margin: 0 0 0.75rem 0;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-accent-2);
-}
-
-.poem-text {
-  margin: 0;
-  line-height: 1.55;
-  opacity: 0.95;
-}
-
-/* Optional: if About sheet is open, dim the poem so overlays don’t fight */
-@media (min-width: 901px) {
-  .about-sheet.is-open ~ .poem-slide {
-    opacity: 0.15;
-    pointer-events: none;
-  }
-}
-
 
 
 /* --- Responsive YouTube embeds without changing HTML --- */
@@ -2110,4 +2023,145 @@ iframe[src*="google.com/maps"] {
 /* Invert selected logos in dark mode */
 [data-theme="dark"] img.invert-on-dark {
   filter: invert(1) !important;
+}
+
+/* =========================
+   Poem sheet (desktop pull from left)
+   ========================= */
+
+#poemSheet {
+  --poem-x: -92%;        /* panel hidden offscreen (left) */
+  --poem-alpha: 0;       /* overall visibility */
+  --poem-backdrop: 0;    /* backdrop opacity */
+}
+
+/* Desktop only */
+.poem-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 125;
+  pointer-events: none;
+  opacity: var(--poem-alpha, 0);
+}
+
+/* Hide entirely on mobile/tablet */
+@media (max-width: 900px) {
+  .poem-sheet { display: none !important; }
+}
+
+.poem-sheet.is-open {
+  pointer-events: auto;
+}
+
+.poem-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+  opacity: var(--poem-backdrop, 0);
+}
+
+[data-theme="dark"] .poem-sheet__backdrop {
+  background: rgba(0,0,0,0.55);
+}
+
+.poem-sheet__panel {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateX(var(--poem-x, -92%)) translateY(-50%);
+
+  width: min(520px, calc(100vw - 3rem));
+  max-height: min(72vh, 760px);
+
+  background: color-mix(in srgb, var(--color-card-bg) 92%, transparent);
+  border: 1px solid var(--color-border);
+  border-left: none;
+  border-radius: 0 22px 22px 0;
+  box-shadow: 0 25px 70px var(--color-shadow);
+
+  overflow: auto;
+  overscroll-behavior: contain;
+  will-change: transform;
+
+  /* IMPORTANT: no CSS transition; JS animates */
+  transition: none;
+}
+
+.poem-sheet__close {
+  position: sticky;
+  top: 0.25rem;
+  margin-left: auto;
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background: color-mix(in srgb, var(--color-global-bg) 30%, transparent);
+  color: var(--color-accent-2);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.poem-sheet__close:hover {
+  transform: translateY(-1px);
+}
+
+/* Always-visible handle (vertical label) */
+.poem-sheet__handle {
+  position: absolute;
+  right: -56px; /* makes it stick out when panel is hidden */
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 56px;
+  height: 220px;
+  border-radius: 0 16px 16px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: color-mix(in srgb, var(--color-global-bg) 82%, var(--color-accent-2) 18%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.poem-sheet.is-dragging .poem-sheet__handle {
+  cursor: grabbing;
+}
+
+.poem-sheet__handle-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  color: var(--color-accent-2);
+  white-space: nowrap;
+}
+
+.poem-sheet__content {
+  padding: 1.1rem 1.1rem 1.25rem;
+  padding-top: 0.75rem;
+}
+
+.poem-sheet__title {
+  margin: 0.5rem 0 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-accent-2);
+}
+
+.poem-sheet__text {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.95;
 }
