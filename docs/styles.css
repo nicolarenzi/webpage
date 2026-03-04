@@ -1740,15 +1740,18 @@ background: var(--color-card-bg);
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
+
 .poem-tap--block{
   display: inline-block;
-  padding: 0.35rem 0.55rem;
-  line-height: 1.35;
+  line-height: inherit;              /* ✅ match the poem’s line-height */
+  padding: 0.12rem 0.35rem;          /* ✅ same as normal .poem-tap */
+  margin: 0 0 0.45rem;               /* ✅ same spacing as one verse block */
 }
 
 .poem-tap--block > div{
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.45rem;               /* ✅ same spacing as other verses */
 }
+
 .poem-tap--block > div:last-child{
   margin-bottom: 0;
 }
