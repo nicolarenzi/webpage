@@ -1717,6 +1717,35 @@ background: var(--color-card-bg);
 
 /* this is the tap for info for the poem */
 /* Highlighted tappable verses (yellow marker look) */
+/* Theme-aware colors for poem highlight + sticker */
+:root{
+  --poem-hl-bg: rgba(255, 230, 120, 0.85);
+  --poem-hl-border: rgba(200, 160, 40, 0.35);
+
+  --poem-sticker-bg: rgba(255, 243, 170, 0.98);
+  --poem-sticker-border: rgba(200, 160, 40, 0.55);
+
+  --poem-sticker-close-bg: rgba(255, 230, 120, 0.9);
+  --poem-sticker-close-border: rgba(200, 160, 40, 0.6);
+
+  --poem-sticker-text: rgba(60, 45, 10, 0.92);
+}
+
+/* Dark mode overrides */
+[data-theme="dark"]{
+  --poem-hl-bg: rgba(95, 242, 107, 0.16);
+  --poem-hl-border: rgba(95, 242, 107, 0.28);
+
+  --poem-sticker-bg: rgba(11, 15, 25, 0.96);
+  --poem-sticker-border: rgba(31, 41, 55, 0.9);
+
+  --poem-sticker-close-bg: rgba(95, 242, 107, 0.18);
+  --poem-sticker-close-border: rgba(95, 242, 107, 0.35);
+
+  --poem-sticker-text: var(--color-global-text);
+}
+
+
 .poem-tap{
   display: inline-block;
   padding: 0.08rem 0.35rem;
@@ -1725,9 +1754,8 @@ background: var(--color-card-bg);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  /* yellow paper highlight */
-  background: rgba(255, 230, 120, 0.85);
-  border: 1px solid rgba(200, 160, 40, 0.35);
+background: var(--poem-hl-bg);
+border: 1px solid var(--poem-hl-border);
 
   /* remove underline */
   text-decoration: none;
@@ -1751,8 +1779,9 @@ background: var(--color-card-bg);
   padding: 0.9rem 1rem;
   border-radius: 16px;
 
-  background: rgba(255, 243, 170, 0.98);           /* sticky note yellow */
-  border: 1px solid rgba(200, 160, 40, 0.55);
+background: var(--poem-sticker-bg);
+border: 1px solid var(--poem-sticker-border);
+color: var(--poem-sticker-text);
   box-shadow: 0 20px 60px var(--color-shadow);
 
   font-style: normal;
@@ -1778,9 +1807,9 @@ background: var(--color-card-bg);
   height: 30px;
   border-radius: 10px;
 
-  border: 1px solid rgba(200, 160, 40, 0.6);
-  background: rgba(255, 230, 120, 0.9);
-  color: rgba(60, 45, 10, 0.9);
+border: 1px solid var(--poem-sticker-close-border);
+background: var(--poem-sticker-close-bg);
+color: var(--poem-sticker-text);
 
   cursor: pointer;
   line-height: 1;
