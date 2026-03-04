@@ -865,7 +865,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 // Poem explained widget helpers
-document.addEventListener('DOMContentLoaded', () => {
   const poemFab = document.querySelector('.poem-fab');
   const poemClose = document.querySelector('[data-poem-close]');
   const poemDrawer = document.querySelector('.poem-drawer');
