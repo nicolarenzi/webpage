@@ -1785,6 +1785,8 @@ color: var(--poem-sticker-text);
   box-shadow: 0 20px 60px var(--color-shadow);
 
   font-style: normal;
+      font-size: 0.85rem;   /* ✅ smaller text */
+
 }
 
 /* Optional: subtle “paper” feel */
