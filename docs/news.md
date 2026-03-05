@@ -16,5 +16,21 @@
     </div>
 </div>
 
+<div class="publication-card">
+    <div class="publication-image">
+      <img src="assets/promocuoikka.png" alt="authors">
+      </div>
+    <div class="publication-content">
+        <h3 class="publication-title">
+                UPCOMING INSTALLATION: Čuoikkariššu / Mosquito Shower
+            </a>
+        </h3>
+        <div class="publication-venue">Sound Installation
+        </div>
+        <div class="publication-authors">Čuoikkariššu / Mosquito Shower is a sound shower invited as part of the Arctic Art Forum 2026, opening on March 7, 2026, at the Climate House of the Natural History Museum of Oslo, Norway. Curated by Italian sound artist and ecologist Nicola Renzi together with Indigenous Sámi scholar and yoik performer Mai Britt Utsi, Čuoikkariššu / Mosquito Shower engages with AAF26’s theme of Climate Microchanges by turning attention to tiny beings with outsized ecological impact in the Arctic.</div>
+        <div class="publication-year">March 7–26, 2026</div>
+    </div>
+</div>
+
 
 </div>
