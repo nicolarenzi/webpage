@@ -7,12 +7,12 @@
 <div class="timeline-item">
     <span class="timeline-dot"></span>
     <div class="timeline-header">
-      <span class="timeline-org">Centre of Excellence in MultiBEING Indigenous Societies / University of Helsinki</span>
+      <span class="timeline-org">Centre of Excellence MultiBEING Justice in Indigenous Societies / University of Helsinki</span>
       <span class="timeline-role">Postdoctoral researcher</span>
-      <span class="timeline-dates">Jan 2026 – <strong class="text-accent">Present</strong></span>
+      <span class="timeline-dates">Mar 2026 – <strong class="text-accent">Present</strong></span>
     </div>
     <div class="timeline-meta">Helsinki, FI</div>
-    <div class="timeline-desc">Exploring how Soundscape Conservation can be reconfigured to integrate Indigenous ecological knowledge and support the biocultural sustainability of Arctic sonic environments</div>
+    <div class="timeline-desc">research project: ITCHES (Insects, Tundra, Co-existence, Heritages and Ecologies of Sounds)</div>
   </div>
 
   <div class="timeline-item">
