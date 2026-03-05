@@ -1178,11 +1178,6 @@ html {
   .reading-grid {
     grid-template-columns: 1fr;
   }
-/* Always underline titles in Further readings */
-#further-readings .publication-title .publication-link {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
 }
 
 /* Party Hat Explosion Animation Styles */
