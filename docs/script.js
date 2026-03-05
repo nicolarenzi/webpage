@@ -1285,5 +1285,43 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 
+// PDF modal popping (hovering overlay)
+(function () {
+  const open = (pdfUrl) => {
+    const modal = document.getElementById('pdfModal');
+    const frame = document.getElementById('pdfFrame');
+    if (!modal || !frame) return;
 
+    frame.src = pdfUrl;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    const modal = document.getElementById('pdfModal');
+    const frame = document.getElementById('pdfFrame');
+    if (!modal || !frame) return;
+
+    modal.style.display = 'none';
+    frame.src = '';
+    document.body.style.overflow = '';
+  };
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-pdf]');
+    if (link) {
+      e.preventDefault();
+      open(link.getAttribute('data-pdf'));
+      return;
+    }
+
+    if (e.target.id === 'pdfBackdrop' || e.target.id === 'pdfClose') {
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+})();
 
