@@ -1747,7 +1747,7 @@ background: var(--color-card-bg);
 
 
 .poem-tap{
-  display: inline-block;
+  display: block;
   padding: 0.08rem 0.35rem;
   border-radius: 10px;
   cursor: pointer;
