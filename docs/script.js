@@ -1285,9 +1285,13 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 
-// PDF modal popping (hovering overlay)
+// PDF modal popping (desktop overlay) + mobile fallback (open in new tab)
 (function () {
-  const open = (pdfUrl) => {
+  const isMobileLike = () =>
+    window.matchMedia('(max-width: 900px)').matches ||
+    window.matchMedia('(pointer: coarse)').matches;
+
+  const openModal = (pdfUrl) => {
     const modal = document.getElementById('pdfModal');
     const frame = document.getElementById('pdfFrame');
     if (!modal || !frame) return;
@@ -1297,7 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const close = () => {
+  const closeModal = () => {
     const modal = document.getElementById('pdfModal');
     const frame = document.getElementById('pdfFrame');
     if (!modal || !frame) return;
@@ -1311,17 +1315,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const link = e.target.closest('a[data-pdf]');
     if (link) {
       e.preventDefault();
-      open(link.getAttribute('data-pdf'));
+      const pdfUrl = link.getAttribute('data-pdf');
+
+      // ✅ Mobile: open with native PDF viewer (page turning works)
+      if (isMobileLike()) {
+        window.open(pdfUrl, '_blank', 'noopener');
+        return;
+      }
+
+      // ✅ Desktop: use the overlay modal
+      openModal(pdfUrl);
       return;
     }
 
     if (e.target.id === 'pdfBackdrop' || e.target.id === 'pdfClose') {
-      close();
+      closeModal();
     }
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') closeModal();
   });
 })();
 
