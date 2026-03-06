@@ -49,39 +49,8 @@
 </div>
 
 
-<details class="publications-more">
-  <summary>
-    <span class="summary-more">Click for more publications</span>
-    <span class="summary-less">Hide publications</span>
-  </summary>
-
-  <div class="publications-more-content">
-   
-      ## 2020
-
-<div class="publication-card">
-    <div class="publication-image">
-        <img src="assets/Figure 6.jpg" alt="drum article">
-    </div>
-    <div class="publication-content">
-        <h3 class="publication-title">
-            <a href="https://www.soundethnographies.it/it/the-sami-drum-from-oracular-rituality-to-musical-perform/" class="publication-link">
-                The Sami Drum from Oracular Rituality to Musical Performance
-            </a>
-        </h3>
-        <div class="publication-venue">Sound Ethnographies</div>
-        <div class="publication-authors">Nicola Renzi</div>
-        <div class="publication-year">2020</div>
-        <div class="publication-tags">
-            <span class="tag tag-safety">Organology</span>
-            <span class="tag tag-safety">Ethnomusicology</span>
-            <span class="tag tag-safety">Sámi drum</span>
-            <span class="tag tag-safety">Iconography</span>
-
-            <a href="https://www.soundethnographies.it/" class="tag tag-arxiv">Journal's website</a>
-        </div>
-    </div>
-</div>
-
-  </div>
-</details>
+<p>
+  <a href="https://helsinki.academia.edu/NicolaRenzi" class="cactus-link" target="_blank" rel="noopener">
+    Click for more publications
+  </a>
+</p>
