@@ -1462,6 +1462,44 @@ html {
   transition: opacity 0.2s ease;
 }
 
+
+/* =========================
+   More publications toggle
+   ========================= */
+
+.publications-more {
+  margin: 1.5rem 0 2rem;
+}
+
+.publications-more summary {
+  cursor: pointer;
+  list-style: none;
+  font-style: italic;
+  color: var(--color-link);
+  margin: 0.5rem 0 1rem;
+  user-select: none;
+}
+
+.publications-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.publications-more .summary-less {
+  display: none;
+}
+
+.publications-more[open] .summary-more {
+  display: none;
+}
+
+.publications-more[open] .summary-less {
+  display: inline;
+}
+
+.publications-more-content {
+  margin-top: 1rem;
+}
+
 /* =========================
    box "did you know?"
    ========================= */
