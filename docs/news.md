@@ -21,7 +21,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-      <img src="assets/UtsiRenzi-portrait.jpg" alt="authors">
+      <img src="assets/NicTuula.jpg" alt="authors">
       </div>
     <div class="publication-content">
         <h3 class="publication-title">
