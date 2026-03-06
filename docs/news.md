@@ -30,7 +30,7 @@
         </h3>
         <div class="publication-venue">Concert
         </div>
-        <div class="publication-authors"><em>Bárut, Riehppovuotna</em> is the result of a collaboration between Sámi researcher, activist, artist, and writer Tuula Sharma Vassvik and Italian sound ecologist and artist Nicola Renzi. Composed of four interwoven <em>luođit</em> carried by a shifting seascape, the suite follows the course of a day in the life of Riehppovuotna, drawing attention to the fjord’s changing rhythms, presences, and entanglements—both above and below the water’s surface. The piece invites listeners to reflect on the coexistence of beings and elements in the fjord, and on how human presence can nurture this balance, or unsettle it. To listen and attend to the lively voices of the fjord is, now more than ever, to care and to resist.
+        <div class="publication-authors"><em>Bárut, Riehppovuotna</em> is the result of a collaboration between Sámi researcher, activist and artist Tuula Sharma Vassvik and Italian sound ecologist and artist Nicola Renzi. Composed of four interwoven <em>luođit</em> carried by a shifting seascape, the suite follows the course of a day in the life of Riehppovuotna, drawing attention to the fjord’s changing rhythms, presences, and entanglements—both above and below the water’s surface. The piece invites listeners to reflect on the coexistence of beings and elements in the fjord, and on how human presence can nurture this balance, or unsettle it. To listen with the lively voices of the fjord is, now more than ever, to care and to resist.
 </div>
         <div class="publication-year">March 14, 2026</div>
     </div>
