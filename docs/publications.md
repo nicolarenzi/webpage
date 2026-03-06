@@ -27,7 +27,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-        <img src="assets/Figure 6.jpg" alt="Silence publication">
+        <img src="assets/ES-SE.jpg" alt="Silence publication">
     </div>
     <div class="publication-content">
         <h3 class="publication-title">
