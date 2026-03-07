@@ -52,11 +52,11 @@
     <span class="timeline-dot"></span>
     <div class="timeline-header">
       <span class="timeline-org">Echofriendly PRIN 2022</span>
-      <span class="timeline-role">Research associate (funded by NextGenerationEU + Italian Ministry of University and Research)</span>
+      <span class="timeline-role">Research associate</span>
       <span class="timeline-dates">Nov 2023 – Mar 2025</span>
     </div>
     <div class="timeline-meta">Bologna, IT • Turin, IT</div>
-    <div class="timeline-desc">Developing acoustemological models and ICT tools for soundscape preservation and ecoacoustic quality assessment of living, working, and recreational environments</div>
+    <div class="timeline-desc">Project funded by NextGenerationEU & the Italian Ministry of University and Research. Developing acoustemological models and ICT tools for soundscape preservation and ecoacoustic quality assessment of living, working, and recreational environments</div>
   </div>
 
   <div class="timeline-item">
