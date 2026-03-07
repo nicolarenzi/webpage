@@ -45,7 +45,7 @@
   <span class="timeline-dates">Nov 2021 – Mar 2025</span>
 </div>
 <div class="timeline-meta">Bologna, IT (in co-tutelle with the University of Helsinki)</div>
-<div class="timeline-desc">thesis: More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi
+<div class="timeline-desc">thesis: More-than-music: Echosystems, acoustemologies and histories of listening from Sápmi</div>
 </div>
 
   <div class="timeline-item">
