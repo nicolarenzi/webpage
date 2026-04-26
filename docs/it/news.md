@@ -2,7 +2,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-      <img src="assets/film.jpg" alt="film thumbnail">
+      <img src="/assets/film.jpg" alt="film thumbnail">
       </div>
     <div class="publication-content">
         <h3 class="publication-title">
@@ -19,7 +19,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-      <img src="assets/UtsiRenzi-portrait.jpg" alt="authors">
+      <img src="/assets/UtsiRenzi-portrait.jpg" alt="authors">
       </div>
     <div class="publication-content">
         <h3 class="publication-title">
@@ -37,7 +37,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-      <img src="assets/NicTuula.jpg" alt="authors">
+      <img src="/assets/NicTuula.jpg" alt="authors">
       </div>
     <div class="publication-content">
         <h3 class="publication-title">
