@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Čuoikkariššu / Mosquito Shower</title>
+    <meta name="description" content="Čuoikkariššu / Mosquito Shower – installazione sonora di Nicola Renzi">
+    <link rel="icon" type="image/x-icon" href="/assets/logo-NR-favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+
+<body class="bg-global-bg text-global-text antialiased">
+
+    <!-- Header (same as index, but logo links back) -->
+    <header id="main-header" class="group">
+        <div class="header-grid">
+
+<a href="/" class="group header-logo flex items-center">
+  <img src="/assets/Logo-NR-ok-square.png" alt="Logo di Nicola Renzi" class="me-3 h-10 sm:h-20 w-auto"/>
+</a>
+
+            <div class="header-title">
+                <span class="text-xl font-bold sm:text-2xl">Nicola Renzi</span>
+            </div>
+
+            <nav class="mobile-nav-menu header-nav sm:flex sm:flex-row sm:items-center" id="navigation-menu">
+                <a href="./">Home</a>
+            </nav>
+
+            <div class="header-controls flex items-center gap-3">
+                <button id="theme-toggle" class="flex h-7 w-7 items-center justify-center rounded-md border border-accent-2/20 bg-accent-2/10 p-1 transition-colors hover:bg-accent-2/20" aria-label="Passa al tema scuro">
+                    <svg class="sun-icon h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg class="moon-icon h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 sm:px-8 py-16">
+        <article class="prose">
+            <h1>Čuoikkariššu / Mosquito Shower</h1>
+
+            <p>
+                <em>Čuoikkariššu / Mosquito Shower</em> è un’installazione sound shower invitata all’<a href="https://arcticartinstitute.com/aaf2026/program/" target="_blank" rel="noopener">Arctic Art Forum 2026</a>, con apertura il 7 marzo 2026 presso la Climate House del Museo di Storia Naturale di Oslo, in Norvegia.
+            </p>
+
+            <img
+              src="/assets/shower-fine.jpg"
+              alt="Fotografia di Mosquito Shower vista dall’alto"
+              style="max-width:100%; height:auto; display:block;"
+            />
+
+            <p>
+                Curata dall’artista sonoro ed ecologo italiano Nicola Renzi insieme alla studiosa sámi indigena e yoik performer Mai Britt Utsi, <em>Čuoikkariššu / Mosquito Shower</em> dialoga con il tema di AAF26, <em>Climate Microchanges</em>, rivolgendo l’attenzione a esseri minuscoli ma dal grande impatto ecologico nell’Artico. “Micro” non rimanda soltanto alla dimensione fisica, ma anche al suono: un ronzio che può apparire lieve e minuscolo, e che tuttavia, nella sua ubiquità, plasma il modo in cui gli ambienti della tundra vengono vissuti e percepiti.
+            </p>
+
+            <details class="about-more">
+              <summary>
+                <span class="summary-more">continua a leggere ↓</span>
+                <span class="summary-less">leggi meno ↑</span>
+              </summary>
+
+              <p style="margin-bottom: 0.5rem;">
+                I cambiamenti nei paesaggi sonori accompagnano spesso — e talvolta persino precedono — i cambiamenti del paesaggio. Nei fragili ecosistemi artici, anche le variazioni più piccole contano. Le zanzare svolgono ruoli essenziali: sostengono le reti trofiche, influenzano il movimento degli animali e contribuiscono all’equilibrio della vita nella tundra. Oggi l’Artico si sta riscaldando rapidamente. Le zanzare compaiono sempre prima durante l’anno, i loro cicli di vita stanno cambiando e nuove specie si stanno spostando verso nord. Mentre la scienza sta ancora cercando di comprendere come queste trasformazioni incideranno sugli ecosistemi e sulla biodiversità, i saperi ecologici indigeni offrono prospettive fondate su una lunga coesistenza e su un’attenzione ravvicinata anche ai cambiamenti microscopici.
+              </p>
+
+              <p style="margin-bottom: 0.5rem;">
+                Nell’Artico europeo, i popoli indigeni sámi hanno imparato a vivere con le zanzare come parte di una più ampia rete di cura tra tutti gli esseri della Terra. Prestare attenzione alla loro presenza significa anche prestare attenzione al loro suono; e il fastidio pungente che comunemente associamo al ronzio di questi insetti può essere ascoltato, da alcune prospettive sámi, come una bellissima melodia di yoik.
+              </p>
+
+              <p style="margin-bottom: 0.5rem;">
+                Con <em>Čuoikkariššu / Mosquito Shower</em>, Nicola Renzi e Mai Britt Utsi invitano il pubblico ad ascoltare con cura. E, se ci si ferma abbastanza a lungo, una melodia può apparire.
+              </p>
+            </details>
+
+            <p>Alla fine di questa pagina trovi una <a href="#further-readings">lista di articoli e altri riferimenti</a> che dialogano con i temi dell’installazione.</p>
+
+            <section>
+              <h3>Hai sentito una melodia nella sound shower?</h3>
+              <p>Se no, prova ad ascoltare il Mosquito Joik di Mai Britt Utsi qui sotto, poi torna sotto la sound shower.</p>
+
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/wdtICqlKK1k?si=13LERDudXi9XICJw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+        </article>
+
+        <section class="poem-inline-mobile" aria-label="La poesia spiegata" style="margin-top: 1.75rem;">
+          <h3>La poesia, con note</h3>
+
+<div style="margin-top:0.75rem; font-style: italic; line-height: 1.7;">
+
+  <div style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Nu unni, ja dan fápmu nu stuoris.</div>
+    Così piccola, eppure così potente.
+  </div>
+
+  <div style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Sápmelačča buoremus biigá,</div>
+    La più fedele aiutante dei Sámi,
+  </div>
+
+  <div class="poem-tap" role="button" tabindex="0"
+       data-note="Già a partire dagli scritti di Johan Turi, numerose fonti sámi hanno descritto le zanzare attraverso termini di parentela e di lavoro, molti dei quali legati alla pastorizia della renna. I rituali di accoppiamento delle zanzare, noti in entomologia come “sciami danzanti”, avvengono intorno a prede a sangue caldo, che nella vastità della tundra sono spesso le renne. Attraverso il loro ronzio e le loro punture, questi insetti provocano gli animali e mettono in movimento le mandrie, guidandole lungo rotte ancestrali verso aree costiere più ventose e libere dalle zanzare. In questo senso, il loro ruolo ricorda quello del vento, che agisce come una bussola capace di orientare le renne verso il mare — da qui l’immagine della zanzara come “figlio del vento”. La loro capacità di radunare e dirigere la mandria ha inoltre associato le zanzare a nomi di ruolo tratti dalla pastorizia della renna."
+       style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">son láidesta, ja dat biekka bárdni son</div>
+    pastora di renne,
+  </div>
+
+  <div class="poem-tap" role="button" tabindex="0"
+       data-note="Già a partire dagli scritti di Johan Turi, numerose fonti sámi hanno descritto le zanzare attraverso termini di parentela e di lavoro, molti dei quali legati alla pastorizia della renna. I rituali di accoppiamento delle zanzare, noti in entomologia come “sciami danzanti”, avvengono intorno a prede a sangue caldo, che nella vastità della tundra sono spesso le renne. Attraverso il loro ronzio e le loro punture, questi insetti provocano gli animali e mettono in movimento le mandrie, guidandole lungo rotte ancestrali verso aree costiere più ventose e libere dalle zanzare. In questo senso, il loro ruolo ricorda quello del vento, che agisce come una bussola capace di orientare le renne verso il mare — da qui l’immagine della zanzara come “figlio del vento”. La loro capacità di radunare e dirigere la mandria ha inoltre associato le zanzare a nomi di ruolo tratti dalla pastorizia della renna."
+       style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">vuojeha ealu.</div>
+    figlia del vento.
+  </div>
+
+  <div style="margin: 0.6rem 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Dat lea luonddu oassi.</div>
+    È parte essenziale della natura.
+  </div>
+
+  <div style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Jus ii čuike,</div>
+    Se non arriva nella sua stagione,
+  </div>
+
+  <div style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">de eai boađe geasi buorit.</div>
+    non segue nulla di buono.
+  </div>
+
+  <div style="margin: 0.6rem 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">De eai boađe báhkat, liekkas, mii šaddada</div>
+    Niente caldo, niente bacche,
+  </div>
+
+  <div style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">murjjiid, ja biepmá gulliid ja lottiid.</div>
+    niente cibo per pesci e uccelli.
+  </div>
+
+  <div style="margin: 0.6rem 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Muhto go dat guđaidit,</div>
+    Ma quando ce ne sono così tante,
+  </div>
+
+  <div style="margin: 0 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">de luondu ealáska fas.</div>
+    la terra torna a vivere.
+  </div>
+
+  <div style="margin: 0.6rem 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Mii eat liiko, go son</div>
+    Non sempre la apprezziamo
+  </div>
+
+  <div style="margin: 0.6rem 0 0.45rem;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">boahtá lahka min bealljemáddaga.</div>
+    quando trova la strada verso le nostre orecchie.
+  </div>
+
+  <div style="margin: 0;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">Muhto jus don guldalat dárkilit,</div>
+    Ma se ascolti con attenzione,
+  </div>
+
+  <div style="margin: 0;">
+    <div style="font-size:0.72rem; opacity:0.5; line-height:1.1; margin:0 0 0.15rem;">de beasat gullat ollu luđiid su jienas.</div>
+    puoi sentire molte melodie nella sua voce.
+  </div>
+</div>
+</section>
+
+        <section>
+  <h2>Field recording</h2>
+  <p>Le registrazioni utilizzate nella sound shower sono state raccolte nel comune di Kautokeino, in Sápmi / Norvegia settentrionale. Govddaluovttafávli è un terreno paludoso situato circa 10 km a nord-ovest della cittadina sámi di Guovdageaidnu. In estate, le acque basse e stagnanti creano condizioni ideali per la riproduzione di migliaia di zanzare. In inverno, il paesaggio è ricoperto da uno spesso strato di ghiaccio e neve, sotto il quale le uova di zanzara rimangono dormienti fino al disgelo primaverile. Il terreno è caratterizzato da bassa vegetazione di tundra e da torba soffice che, nella stagione calda, si accende di colori vividi tra piante di camemoro ed eriofori.
+</p>
+
+  <div class="map-embed">
+    <iframe 
+        src="https://www.google.com/maps?q=69.079560,22.849500&t=k&z=17&output=embed"
+        width="600"
+        height="450"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+            <p>Per queste registrazioni, Nicola Renzi ha utilizzato una coppia stereo di microfoni omnidirezionali abbinati (Primo EM272), fissati a una rete antizanzare all’altezza delle orecchie, come mostrato nella gif qui sotto. Questa configurazione permette alla riproduzione di simulare da vicino il suo ascolto nel momento della registrazione, mentre dense nuvole di zanzare si radunavano intorno alla sua testa, pungendo attraverso la rete nel tentativo di nutrirsi dalle sue orecchie.
+</p>
+
+<img src="/assets/bzzz.gif" alt="Configurazione di field recording: microfoni su rete antizanzare"
+     loading="lazy"
+     style="display:block; max-width:100%; height:auto; border-radius:16px; margin:0.75rem 0; box-shadow:0 15px 40px var(--color-shadow);"></section>
+
+<section id="further-readings" class="prose breakout" style="margin-top: 3rem;">
+            <hr size="1">
+  <h2>Per approfondire</h2>
+
+  <p>
+    L’installazione e la ricerca da cui nasce attingono a un insieme transdisciplinare di testi e media. Di seguito è presentata una breve selezione curata, che comprende contributi di divulgazione scientifica e articoli accademici. Nel loro insieme, queste fonti offrono un ulteriore contesto per le questioni ecologiche e culturali esplorate nel lavoro.
+  </p>
+
+  <div class="reading-grid" role="list">
+
+    <section class="reading-block" role="listitem" aria-label="Articoli scientifici">
+      <div class="reading-block__header">
+        <h3 class="reading-block__title">Articoli scientifici</h3>
+      </div>
+
+      <!-- I titoli degli articoli restano in lingua originale -->
