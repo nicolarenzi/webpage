@@ -2321,34 +2321,4 @@ iframe[src*="google.com/maps"] {
   filter: invert(1) !important;
 }
 
-/* =========================
-   Mobile header: prevent name breaking
-   ========================= */
-
-@media (max-width: 640px) {
-  .header-title {
-    min-width: 0 !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
-  }
-
-  /* Only the direct title span, not inner hover letters */
-  .header-title > span {
-    display: block !important;
-    white-space: nowrap !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 100% !important;
-  }
-
-  /* Important: keep animated z letters inline */
-  .header-title .hover-b {
-    display: inline !important;
-    white-space: inherit !important;
-  }
-}
-
 
