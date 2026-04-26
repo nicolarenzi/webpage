@@ -882,11 +882,9 @@ button:focus-visible {
     }
     
     /* Better logo visibility and size */
-    #main-header svg {
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        height: 4rem !important; /* Increase from 3.5rem to 4rem */
-        width: 2.4rem !important;  /* Increase from 2.1rem to 2.4rem, maintaining aspect ratio */
-    }
+#main-header .header-logo img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
 }
 
 /* Prevent text selection on interactive elements */
