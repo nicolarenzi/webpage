@@ -538,6 +538,58 @@ body {
     text-decoration-thickness: 2px;
 }
 
+
+/* =========================
+   Language switch
+   ========================= */
+
+.language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--color-accent-2);
+    white-space: nowrap;
+}
+
+.language-switch a {
+    color: var(--color-accent-2);
+    text-decoration: none;
+    opacity: 0.55;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.language-switch a:hover {
+    opacity: 1;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.language-switch a.active {
+    opacity: 1;
+    color: var(--color-accent);
+    font-weight: 700;
+}
+
+.language-switch span {
+    opacity: 0.35;
+}
+
+/* Mobile: make it touch-friendly but compact */
+@media (max-width: 640px) {
+    .language-switch {
+        font-size: 0.75rem;
+        gap: 0.25rem;
+    }
+
+    .language-switch a {
+        padding: 0.35rem 0.15rem;
+    }
+}
+
+
 /* About section layout */
 .about-header {
     display: flex;
