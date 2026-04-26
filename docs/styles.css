@@ -791,6 +791,44 @@ button:focus-visible {
         /* Keep fixed position on mobile - removed position: relative override */
         z-index: 100; /* Ensure proper z-index on mobile */
     }
+@media (max-width: 640px) {
+  .header-title {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .header-title span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+  }
+
+  .header-controls {
+    flex-shrink: 0;
+    gap: 0.35rem;
+  }
+
+  .language-switch {
+    font-size: 0.68rem;
+    gap: 0.18rem;
+  }
+
+  .language-switch a {
+    padding: 0.25rem 0.05rem;
+  }
+
+  #theme-toggle,
+  #toggle-navigation-menu {
+    min-width: 38px;
+    min-height: 38px;
+    width: 38px;
+    height: 38px;
+  }
+}
+
     
     /* Prevent body scroll when menu is open */
     body.menu-open {
