@@ -5,7 +5,7 @@
 
 <div class="publication-card">
     <div class="publication-image">
-        <img src="assets/swan.jpg" alt="Ode to Mosquito publication">
+        <img src="/assets/swan.jpg" alt="Ode to Mosquito publication">
     </div>
     <div class="publication-content">
         <h3 class="publication-title">
