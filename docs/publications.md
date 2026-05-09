@@ -13,7 +13,7 @@
                 An Ode to Culex: Listening with Mosquitoes, from Virgil to Sápmi
             </a>
         </h3>
-        <div class="publication-venue">Listening to the Swan Song. More-than-Human Beings and Sounds in Literature and Culture Through the Ages (edited by Piotr Kociumbas & Joanna Godlewicz-Adamiec)</div>
+        <div class="publication-venue">Listening to the Swan Song. More-than-Human Beings and Sounds in Literature and Culture Through the Ages (eds. P. Kociumbas & J. Godlewicz-Adamiec)</div>
         <div class="publication-authors">Nicola Renzi</div>
         <div class="publication-year">2026</div>
         <div class="publication-tags">
