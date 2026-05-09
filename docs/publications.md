@@ -17,7 +17,7 @@
         <div class="publication-authors">Nicola Renzi</div>
         <div class="publication-year">2026</div>
         <div class="publication-tags">
-            <span class="tag tag-safety">Mosquito</span><span class="tag tag-safety">Acoustemology</span><span class="tag tag-safety">Classic literature</span>
+            <span class="tag tag-safety">Mosquito</span><span class="tag tag-safety">Acoustemology</span><span class="tag tag-safety">Classical literature</span>
             <a href="https://doi.org/10.14220/9783737019781.133" class="tag tag-arxiv">DOI</a>
             <a href="https://www.academia.edu/166870953/An_Ode_to_Culex_Listening_with_Mosquitoes_from_Virgil_to_S%C3%A1pmi" class="tag tag-github">Academia.edu</a>
         </div>
