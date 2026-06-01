@@ -10,7 +10,7 @@
     <span>Scholar</span>
   </a>
 
-  <a href="https://unibo.academia.edu/NicolaRenzi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);">
+  <a href="https://helsinki.academia.edu/NicolaRenzi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:var(--color-accent-2);">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;opacity:0.9;"><path d="M12 2L1 22h4l2.3-4.5h9.4L19 22h4L12 2zm-3.1 11L12 6.7 15.1 13H8.9z"/></svg>
   <span>Academia</span>
 </a>
