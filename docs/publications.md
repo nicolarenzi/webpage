@@ -44,7 +44,7 @@
         <div class="publication-tags">
             <span class="tag tag-safety">Anthropology and Ecology of Sound</span>
             <a href="http://hdl.handle.net/10138/593302" class="tag tag-arxiv">Official repository</a>
-            <a href="https://www.academia.edu/128358469/More_than_music_Echosystems_acoustemologies_and_histories_of_listening_from_S%C3%A1pmi" class="tag tag-github">Academia.edu</a>
+            <a href="https://www.academia.edu/167936381/More_than_music_Echosystems_acoustemologies_and_histories_of_listening_from_S%C3%A1pmi" class="tag tag-github">Academia.edu</a>
         </div>
     </div>
 </div>
