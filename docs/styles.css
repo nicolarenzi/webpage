@@ -2598,4 +2598,14 @@ iframe[src*="google.com/maps"] {
     }
 }
 
-
+/* broad header */
+@media (min-width: 641px) {
+    #main-header {
+        left: 0;
+        transform: none;
+        width: 100%;
+        max-width: none;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
