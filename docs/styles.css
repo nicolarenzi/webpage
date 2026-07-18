@@ -2477,9 +2477,9 @@ iframe[src*="google.com/maps"] {
     padding: 0 0 0 1.25rem;
     border-left: 3px solid var(--color-accent);
     color: var(--color-accent-2);
-    font-size: clamp(1.4rem, 4vw, 2.5rem);
+    font-size: 1rem;
     font-style: normal;
-    line-height: 1.2;
+    line-height: 1.5;
 }
 
 .video-embed {
