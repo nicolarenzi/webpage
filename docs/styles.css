@@ -2322,3 +2322,242 @@ iframe[src*="google.com/maps"] {
 }
 
 
+
+/* =========================
+   Advocate of Yoik film page
+   Append this to styles.css
+   ========================= */
+
+.film-main {
+    width: min(100% - 2rem, 72rem);
+    margin: 0 auto;
+    padding: 2rem 0 6rem;
+}
+
+.film-hero {
+    max-width: 57.6rem;
+    margin: 0 auto 3rem;
+    padding-top: 1rem;
+}
+
+.film-eyebrow,
+.film-kicker {
+    margin: 0 0 0.65rem;
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.film-hero h1 {
+    max-width: 10ch;
+    margin: 0;
+    color: var(--color-accent-2);
+    font-size: clamp(2.8rem, 9vw, 6.8rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.07em;
+}
+
+.film-logline {
+    max-width: 48rem;
+    margin: 2rem 0 0;
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    line-height: 1.65;
+}
+
+.film-premiere {
+    display: grid;
+    width: fit-content;
+    margin-top: 2.25rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--color-accent);
+    gap: 0.15rem;
+}
+
+.film-premiere__label,
+.film-premiere span:last-child {
+    font-size: 0.8rem;
+    opacity: 0.72;
+}
+
+.film-premiere strong {
+    color: var(--color-accent-2);
+    font-size: 1.05rem;
+}
+
+.film-lead-image {
+    width: min(100%, 72rem);
+    margin: 0 auto 5rem;
+}
+
+.film-lead-image img,
+.film-gallery img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.film-lead-image img {
+    max-height: 75vh;
+    aspect-ratio: 16 / 9;
+}
+
+.film-lead-image figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    opacity: 0.62;
+}
+
+.film-section {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.75fr) minmax(0, 2fr);
+    max-width: 57.6rem;
+    margin: 0 auto 5.5rem;
+    gap: 2.5rem;
+}
+
+.film-section-heading h2 {
+    margin: 0;
+    color: var(--color-accent-2);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.15;
+}
+
+.film-copy p:first-child {
+    margin-top: 0;
+}
+
+.film-copy p {
+    margin-bottom: 1.35rem;
+}
+
+.film-copy blockquote {
+    margin: 2.5rem 0 0;
+    padding: 0 0 0 1.25rem;
+    border-left: 3px solid var(--color-accent);
+    color: var(--color-accent-2);
+    font-size: clamp(1.4rem, 4vw, 2.5rem);
+    font-style: normal;
+    line-height: 1.2;
+}
+
+.video-embed {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.film-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 72rem);
+    margin: 0 auto 5.5rem;
+    gap: 0.75rem;
+}
+
+.film-gallery figure {
+    min-height: 22rem;
+    margin: 0;
+    overflow: hidden;
+}
+
+.film-gallery__wide {
+    grid-column: 1 / -1;
+    min-height: 35rem !important;
+}
+
+.film-support {
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-card-bg);
+}
+
+.film-credits {
+    margin: 0;
+}
+
+.film-credits > div {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.7fr) minmax(0, 1.5fr);
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--color-border);
+    gap: 1rem;
+}
+
+.film-credits > div:last-child {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.film-credits dt {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.film-credits dd {
+    margin: 0;
+}
+
+@media (max-width: 760px) {
+    .film-main {
+        width: min(100% - 2rem, 57.6rem);
+        padding-top: 1rem;
+    }
+
+    .film-hero {
+        margin-bottom: 2.5rem;
+    }
+
+    .film-hero h1 {
+        max-width: none;
+        font-size: clamp(2.8rem, 15vw, 4.6rem);
+    }
+
+    .film-lead-image {
+        margin-bottom: 3.75rem;
+    }
+
+    .film-section {
+        grid-template-columns: 1fr;
+        margin-bottom: 4rem;
+        gap: 1.25rem;
+    }
+
+    .film-gallery {
+        grid-template-columns: 1fr;
+        margin-bottom: 4rem;
+    }
+
+    .film-gallery__wide {
+        grid-column: auto;
+    }
+
+    .film-gallery figure,
+    .film-gallery__wide {
+        min-height: 20rem !important;
+    }
+
+    .film-support {
+        padding: 1.35rem;
+    }
+
+    .film-credits > div {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+}
+
+
