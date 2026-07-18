@@ -2605,7 +2605,12 @@ iframe[src*="google.com/maps"] {
         transform: none;
         width: 100%;
         max-width: none;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding: 0;
+    }
+
+    #main-header .header-grid {
+        max-width: 57.6rem;
+        margin: 0 auto;
+        padding: 1rem 2rem 0.5rem;
     }
 }
