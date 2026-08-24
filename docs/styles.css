@@ -2682,3 +2682,12 @@ iframe[src*="google.com/maps"] {
   }
 
 }
+
+.exhibition-selection {
+  margin-bottom: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
