@@ -2598,3 +2598,87 @@ iframe[src*="google.com/maps"] {
     }
 }
 
+/* =========================
+   Exhibition history
+   ========================= */
+
+.exhibition-history {
+  margin-top: 3rem;
+}
+
+.exhibition-list {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.exhibition-entry {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 1.5rem;
+
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.exhibition-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  line-height: 1.4;
+}
+
+.exhibition-info {
+  min-width: 0;
+}
+
+.prose .exhibition-event {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+
+  color: var(--color-accent-2);
+  font-size: 1rem;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.prose .exhibition-event:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.exhibition-venue {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--color-global-text);
+}
+
+.exhibition-place {
+  margin-top: 0.15rem;
+
+  font-size: 0.8rem;
+  line-height: 1.4;
+
+  color: color-mix(
+    in srgb,
+    var(--color-global-text) 65%,
+    transparent
+  );
+}
+
+
+/* Mobile */
+@media (max-width: 640px) {
+
+  .exhibition-entry {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 1.1rem 0;
+  }
+
+  .exhibition-date {
+    font-size: 0.75rem;
+  }
+
+}
