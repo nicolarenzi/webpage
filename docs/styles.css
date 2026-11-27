@@ -2834,3 +2834,342 @@ iframe[src*="google.com/maps"] {
         transition: none;
     }
 }
+
+
+
+
+/* =========================================
+   ADVOCATE OF YOIK — Synopsis / Concept
+   Horizontal reading accordion
+   ========================================= */
+
+.film-reading {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+
+    width: 100%;
+    min-width: 0;
+    margin: 2rem 0 0;
+}
+
+
+/* =========================================
+   Individual panels
+   ========================================= */
+
+.film-reading__panel {
+    display: flex;
+    flex-direction: column;
+
+    flex: 0 0 48px;
+    min-width: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+
+    overflow: hidden;
+
+    background: var(--color-global-bg);
+
+    transition:
+        flex-basis 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        flex-grow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.25s ease;
+}
+
+
+/* Active panel */
+
+.film-reading[data-active="synopsis"]
+[data-reading-panel="synopsis"],
+
+.film-reading[data-active="concept"]
+[data-reading-panel="concept"] {
+    flex: 1 1 0px;
+}
+
+
+/* =========================================
+   Panel headings
+   ========================================= */
+
+.film-reading__toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem;
+
+    width: 100%;
+    flex: 1;
+
+    padding: 1rem 0.5rem;
+
+    font: inherit;
+    color: var(--color-accent-2);
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+
+/* Hover on retracted panel */
+
+.film-reading__toggle[aria-expanded="false"]:hover {
+    background: color-mix(
+        in srgb,
+        var(--color-accent-2) 6%,
+        transparent
+    );
+}
+
+
+/* Panel numbering */
+
+.film-reading__number {
+    font-size: 0.65rem;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+
+/* Vertical heading on retracted panel */
+
+.film-reading__title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+/* Direction indicator */
+
+.film-reading__arrow {
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-accent);
+}
+
+
+/* =========================================
+   Active panel heading
+   ========================================= */
+
+.film-reading__toggle[aria-expanded="true"] {
+    flex: 0 0 auto;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+
+    border-bottom: 1px solid var(--color-border);
+
+    cursor: default;
+}
+
+.film-reading__toggle[aria-expanded="true"]
+.film-reading__title {
+    writing-mode: horizontal-tb;
+    transform: none;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.film-reading__toggle[aria-expanded="true"]
+.film-reading__arrow {
+    display: none;
+}
+
+
+/* =========================================
+   Reading content
+   ========================================= */
+
+.film-reading__content {
+    min-width: 0;
+    padding: 1.5rem;
+
+    font-size: inherit;
+    line-height: 1.8;
+
+    overflow-wrap: break-word;
+
+    animation: film-reading-fade-in 0.35s ease both;
+}
+
+.film-reading__content[hidden] {
+    display: none !important;
+}
+
+.film-reading__content p {
+    margin: 0 0 1.25rem;
+}
+
+.film-reading__content p:last-child {
+    margin-bottom: 0;
+}
+
+.film-reading__content blockquote {
+    margin-bottom: 0;
+}
+
+
+/* Text entrance */
+
+@keyframes film-reading-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   Mobile — horizontal switches
+   Full-width reading area
+   ========================================= */
+
+@media (max-width: 760px) {
+
+    .film-reading {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
+        gap: 0;
+        margin-top: 1.5rem;
+
+        border: 1px solid var(--color-border);
+        border-radius: 0.375rem;
+
+        overflow: hidden;
+    }
+
+    .film-reading__panel {
+        display: contents;
+    }
+
+
+    /* Both headings stay in the top row */
+
+    .film-reading__toggle {
+        grid-row: 1;
+
+        flex-direction: row;
+        justify-content: center;
+
+        gap: 0.5rem;
+
+        min-width: 0;
+        min-height: 48px;
+        padding: 0.85rem 0.5rem;
+
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    [data-reading-panel="synopsis"]
+    .film-reading__toggle {
+        grid-column: 1;
+    }
+
+    [data-reading-panel="concept"]
+    .film-reading__toggle {
+        grid-column: 2;
+        border-left: 1px solid var(--color-border);
+    }
+
+
+    /* Horizontal labels */
+
+    .film-reading__title,
+
+    .film-reading__toggle[aria-expanded="true"]
+    .film-reading__title {
+        writing-mode: horizontal-tb;
+        transform: none;
+
+        font-size: 0.85rem;
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    .film-reading__toggle[aria-expanded="true"] {
+        justify-content: center;
+
+        gap: 0.5rem;
+        padding: 0.85rem 0.5rem;
+
+        background: color-mix(
+            in srgb,
+            var(--color-accent-2) 7%,
+            transparent
+        );
+
+        box-shadow: inset 0 -2px 0 var(--color-accent);
+    }
+
+    .film-reading__arrow {
+        display: none;
+    }
+
+
+    /* Selected content spans both columns */
+
+    .film-reading__content {
+        grid-column: 1 / -1;
+        grid-row: 2;
+
+        padding: 1.25rem 1rem;
+
+        font-size: 0.875rem;
+        line-height: 1.8;
+    }
+
+}
+
+
+/* =========================================
+   Accessibility
+   ========================================= */
+
+.film-reading__toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .film-reading__panel,
+    .film-reading__toggle {
+        transition: none;
+    }
+
+    .film-reading__content {
+        animation: none;
+    }
+
+}
+
