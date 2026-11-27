@@ -3173,3 +3173,120 @@ iframe[src*="google.com/maps"] {
 
 }
 
+
+
+/* =========================================
+   FILM READING — More visible inactive tabs
+   ========================================= */
+
+.film-reading__toggle[aria-expanded="false"] {
+    background: color-mix(
+        in srgb,
+        var(--color-accent) 9%,
+        var(--color-global-bg)
+    );
+
+    color: var(--color-accent);
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
+}
+
+/* More prominent label */
+
+.film-reading__toggle[aria-expanded="false"]
+.film-reading__title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+}
+
+/* More visible numbering */
+
+.film-reading__toggle[aria-expanded="false"]
+.film-reading__number {
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+/* Stronger directional arrow */
+
+.film-reading__toggle[aria-expanded="false"]
+.film-reading__arrow {
+    font-size: 1.4rem;
+
+    transition: transform 0.25s ease;
+}
+
+/* Hover feedback */
+
+.film-reading__toggle[aria-expanded="false"]:hover {
+    background: color-mix(
+        in srgb,
+        var(--color-accent) 18%,
+        var(--color-global-bg)
+    );
+}
+
+
+/* Desktop */
+
+@media (min-width: 761px) {
+
+    /* Wider retracted panel */
+
+    .film-reading__panel {
+        flex-basis: 60px;
+    }
+
+    /* Accent border around inactive panel */
+
+    .film-reading[data-active="synopsis"]
+    [data-reading-panel="concept"],
+
+    .film-reading[data-active="concept"]
+    [data-reading-panel="synopsis"] {
+        border-color: color-mix(
+            in srgb,
+            var(--color-accent) 50%,
+            var(--color-border)
+        );
+    }
+
+    /* Arrow moves towards the reading area */
+
+    [data-reading-toggle="concept"]:hover
+    .film-reading__arrow {
+        transform: translateX(-4px);
+    }
+
+    [data-reading-toggle="synopsis"]:hover
+    .film-reading__arrow {
+        transform: translateX(4px);
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 760px) {
+
+    .film-reading__toggle[aria-expanded="false"] {
+        min-height: 52px;
+    }
+
+    .film-reading__toggle[aria-expanded="false"]
+    .film-reading__title {
+        font-size: 0.875rem;
+        letter-spacing: normal;
+    }
+
+    .film-reading__toggle[aria-expanded="false"]
+    .film-reading__arrow {
+        display: inline-block;
+        font-size: 1rem;
+    }
+
+}
+
