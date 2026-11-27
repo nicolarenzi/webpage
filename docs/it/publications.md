@@ -5,6 +5,28 @@
 
 <div class="publication-card">
     <div class="publication-image">
+        <img src="/assets/religiographies.png" alt="Signals of extractivism">
+    </div>
+    <div class="publication-content">
+        <h3 class="publication-title">
+            <a href="https://doi.org/10.69125/Religio.2026.v5.n2.36-50" class="publication-link">
+                Signals of Extractivism in Sámi Sacred Echosystem
+            </a>
+        </h3>
+        <div class="publication-venue">Religiographies (2026, 2)</div>
+        <div class="publication-authors">Nicola Renzi</div>
+        <div class="publication-year">2026</div>
+        <div class="publication-tags">
+            <span class="tag tag-safety">Ecologia acustica</span><span class="tag tag-safety">Acustemologia</span><span class="tag tag-safety">Paesaggi sonori sacri</span>
+            <a href="https://doi.org/10.69125/Religio.2026.v5.n2.36-50" class="tag tag-arxiv">DOI</a>
+            <a href="https://www.academia.edu/181200485/Signals_of_Extractivism_in_S%C3%A1mi_Sacred_Echosystem" class="tag tag-github">Academia.edu</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="publication-card">
+    <div class="publication-image">
         <img src="/assets/swan.jpg" alt="Ode to Mosquito publication">
     </div>
     <div class="publication-content">
