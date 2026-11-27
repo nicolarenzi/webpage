@@ -3290,3 +3290,46 @@ iframe[src*="google.com/maps"] {
 
 }
 
+/* Mobile — highlight the selected reading tab */
+
+@media (max-width: 760px) {
+
+    /* Inactive tab — neutral grey */
+    .film-reading__toggle[aria-expanded="false"] {
+        background: color-mix(
+            in srgb,
+            var(--color-accent-2) 5%,
+            var(--color-global-bg)
+        );
+
+        color: var(--color-global-text);
+    }
+
+    /* Active tab — accent colour */
+    .film-reading__toggle[aria-expanded="true"] {
+        background: color-mix(
+            in srgb,
+            var(--color-accent) 15%,
+            var(--color-global-bg)
+        );
+
+        color: var(--color-accent);
+        box-shadow: inset 0 -2px 0 var(--color-accent);
+    }
+
+    /* Neutral arrow on inactive tab */
+    .film-reading__toggle[aria-expanded="false"]
+    .film-reading__arrow {
+        color: var(--color-global-text);
+    }
+
+    /* Neutral hover effect */
+    .film-reading__toggle[aria-expanded="false"]:hover {
+        background: color-mix(
+            in srgb,
+            var(--color-accent-2) 10%,
+            var(--color-global-bg)
+        );
+    }
+
+}
