@@ -2691,3 +2691,146 @@ iframe[src*="google.com/maps"] {
   text-transform: uppercase;
   color: var(--color-accent);
 }
+
+
+
+/* =========================================
+   ADVOCATE OF YOIK — Chapter carousel
+   ========================================= */
+
+.film-carousel {
+    min-width: 0;
+}
+
+/* Horizontally scrollable track */
+.film-carousel__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+    align-items: flex-start;
+}
+
+/* Individual chapter */
+.film-chapter {
+    flex: 0 0 100%;
+    min-width: 0;
+    margin: 0;
+    scroll-snap-align: start;
+}
+
+/* Chapter still */
+.film-chapter img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+}
+
+/* Chapter number and logline */
+.film-chapter figcaption {
+    padding: 1rem 0 0;
+}
+
+.film-chapter figcaption p {
+    margin: 0 0 1rem;
+}
+
+/* Carousel navigation */
+.film-carousel__controls:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+}
+
+/* Previous and next buttons */
+.film-carousel button {
+    font: inherit;
+    color: var(--color-global-text);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    transition: opacity 0.2s ease,
+                background-color 0.2s ease;
+}
+
+.film-carousel button:hover:not(:disabled) {
+    background-color: color-mix(
+        in srgb,
+        var(--color-accent-2) 10%,
+        transparent
+    );
+}
+
+.film-carousel button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* Chapter number navigation */
+.film-carousel__dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.film-carousel__dots button {
+    min-width: 26px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    font-size: 0.75rem;
+}
+
+/* Currently selected chapter */
+.film-carousel__dots button[aria-current="true"] {
+    color: var(--color-accent-2);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 700;
+}
+
+/* Keyboard accessibility */
+.film-carousel button:focus-visible,
+.film-carousel__track:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+/* Mobile layout */
+@media (max-width: 760px) {
+    .film-carousel__dots button {
+        min-width: 24px;
+    }
+
+    .film-carousel__track {
+        scrollbar-width: none;
+    }
+
+    .film-carousel__track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .film-chapter figcaption {
+        padding-top: 0.75rem;
+    }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .film-carousel__track {
+        scroll-behavior: auto;
+    }
+
+    .film-carousel button {
+        transition: none;
+    }
+}
