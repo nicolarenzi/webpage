@@ -1153,3 +1153,208 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
+
+
+// =========================================
+// ADVOCATE OF YOIK — Chapter carousel
+// =========================================
+
+class FilmChapterCarousel {
+    constructor(carousel) {
+        this.carousel = carousel;
+        this.track = carousel.querySelector('.film-carousel__track');
+        this.slides = Array.from(carousel.querySelectorAll('.film-chapter'));
+        this.controls = carousel.querySelector('.film-carousel__controls');
+        this.prev = carousel.querySelector('[data-chapter-prev]');
+        this.next = carousel.querySelector('[data-chapter-next]');
+        this.dots = carousel.querySelector('.film-carousel__dots');
+        this.status = carousel.querySelector('[data-chapter-status]');
+
+        this.currentIndex = 0;
+        this.buttons = [];
+        this.scrollFrame = null;
+
+        this.prefersReduced = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        );
+
+        if (!this.track || !this.slides.length) return;
+
+        this.init();
+    }
+
+    init() {
+        // Generate chapter number buttons
+        this.slides.forEach((slide, index) => {
+            const button = document.createElement('button');
+
+            button.type = 'button';
+            button.textContent = String(index + 1).padStart(2, '0');
+
+            button.setAttribute(
+                'aria-label',
+                `Go to chapter ${index + 1}`
+            );
+
+            button.addEventListener('click', () => {
+                this.goTo(index);
+            });
+
+            this.dots.appendChild(button);
+            this.buttons.push(button);
+        });
+
+        // Previous and next buttons
+        this.prev.addEventListener('click', () => {
+            this.goTo(this.currentIndex - 1);
+        });
+
+        this.next.addEventListener('click', () => {
+            this.goTo(this.currentIndex + 1);
+        });
+
+        // Update active chapter during native scrolling/swiping
+        this.track.addEventListener('scroll', () => {
+            if (this.scrollFrame !== null) return;
+
+            this.scrollFrame = requestAnimationFrame(() => {
+                this.syncFromScroll();
+                this.scrollFrame = null;
+            });
+        }, { passive: true });
+
+        // Keyboard navigation
+        this.track.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    this.goTo(this.currentIndex - 1);
+                    break;
+
+                case 'ArrowRight':
+                    event.preventDefault();
+                    this.goTo(this.currentIndex + 1);
+                    break;
+
+                case 'Home':
+                    event.preventDefault();
+                    this.goTo(0);
+                    break;
+
+                case 'End':
+                    event.preventDefault();
+                    this.goTo(this.slides.length - 1);
+                    break;
+            }
+        });
+
+        // Preserve selected chapter when resizing
+        // or rotating a mobile device
+        if ('ResizeObserver' in window) {
+            let previousWidth = this.track.clientWidth;
+
+            this.resizeObserver = new ResizeObserver(() => {
+                const width = this.track.clientWidth;
+
+                if (width !== previousWidth) {
+                    previousWidth = width;
+                    this.goTo(this.currentIndex, false);
+                }
+            });
+
+            this.resizeObserver.observe(this.track);
+        }
+
+        // Reveal navigation after initialization
+        this.controls.hidden = false;
+
+        this.updateControls();
+    }
+
+    goTo(index, smooth = true) {
+        index = Math.max(
+            0,
+            Math.min(index, this.slides.length - 1)
+        );
+
+        const target = this.slides[index];
+
+        const position =
+            target.getBoundingClientRect().left -
+            this.track.getBoundingClientRect().left +
+            this.track.scrollLeft;
+
+        this.currentIndex = index;
+
+        this.track.scrollTo({
+            left: position,
+            behavior: smooth && !this.prefersReduced.matches
+                ? 'smooth'
+                : 'instant'
+        });
+
+        this.updateControls();
+    }
+
+    syncFromScroll() {
+        const trackLeft = this.track.getBoundingClientRect().left;
+
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        this.slides.forEach((slide, index) => {
+            const distance = Math.abs(
+                slide.getBoundingClientRect().left - trackLeft
+            );
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        if (closestIndex !== this.currentIndex) {
+            this.currentIndex = closestIndex;
+            this.updateControls();
+        }
+    }
+
+    updateControls() {
+        // Disable arrows at the beginning and end
+        this.prev.disabled = this.currentIndex === 0;
+        this.next.disabled =
+            this.currentIndex === this.slides.length - 1;
+
+        // Highlight the active chapter number
+        this.buttons.forEach((button, index) => {
+            if (index === this.currentIndex) {
+                button.setAttribute('aria-current', 'true');
+            } else {
+                button.removeAttribute('aria-current');
+            }
+        });
+
+        // Screen reader announcement
+        if (this.status) {
+            this.status.textContent =
+                `Chapter ${this.currentIndex + 1} of ${this.slides.length}`;
+        }
+    }
+}
+
+// Initialize film carousels
+function initFilmChapterCarousels() {
+    document.querySelectorAll('[data-film-carousel]').forEach(carousel => {
+        new FilmChapterCarousel(carousel);
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener(
+        'DOMContentLoaded',
+        initFilmChapterCarousels
+    );
+} else {
+    initFilmChapterCarousels();
+}
+
