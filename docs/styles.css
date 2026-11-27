@@ -2725,9 +2725,9 @@ iframe[src*="google.com/maps"] {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: auto;
     object-fit: contain;
-    background: #000;
+    background: transparent;
 }
 
 /* Chapter number and logline */
