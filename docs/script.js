@@ -1358,3 +1358,219 @@ if (document.readyState === 'loading') {
     initFilmChapterCarousels();
 }
 
+
+
+// =========================================
+// ADVOCATE OF YOIK — Synopsis / Concept
+// =========================================
+
+class FilmReadingAccordion {
+
+    constructor(container) {
+
+        this.container = container;
+
+        this.buttons = Array.from(
+            container.querySelectorAll('[data-reading-toggle]')
+        );
+
+        this.panels = Array.from(
+            container.querySelectorAll('[data-reading-panel]')
+        );
+
+        this.active = 'synopsis';
+
+        this.switchTimer = null;
+
+        this.prefersReduced = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        );
+
+        this.mobile = window.matchMedia(
+            '(max-width: 760px)'
+        );
+
+        this.init();
+    }
+
+
+    init() {
+
+        // Synopsis is always selected initially
+        this.activate('synopsis', false);
+
+
+        // Handle clicking or tapping a panel
+        this.buttons.forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                const target = button.dataset.readingToggle;
+
+                if (target !== this.active) {
+                    this.activate(target);
+                }
+
+            });
+
+        });
+
+
+        // Keyboard navigation between panels
+        this.container.addEventListener('keydown', event => {
+
+            if (!event.target.closest('[data-reading-toggle]')) {
+                return;
+            }
+
+            let target;
+
+            if (event.key === 'ArrowLeft') {
+                target = 'synopsis';
+            } else if (event.key === 'ArrowRight') {
+                target = 'concept';
+            } else {
+                return;
+            }
+
+            event.preventDefault();
+
+            this.activate(target);
+
+            const button = this.buttons.find(
+                item => item.dataset.readingToggle === target
+            );
+
+            if (button) {
+                button.focus({ preventScroll: true });
+            }
+
+        });
+
+    }
+
+
+    activate(target, animate = true) {
+
+        if (!this.panels.some(
+            panel => panel.dataset.readingPanel === target
+        )) {
+            return;
+        }
+
+        clearTimeout(this.switchTimer);
+
+        // Preserve the component height during the transition
+        const previousHeight = this.container.offsetHeight;
+
+        const shouldAnimate =
+            animate &&
+            !this.prefersReduced.matches &&
+            !this.mobile.matches;
+
+
+        if (shouldAnimate) {
+            this.container.style.minHeight =
+                `${previousHeight}px`;
+        } else {
+            this.container.style.minHeight = '';
+        }
+
+
+        // Hide old reading content
+        this.panels.forEach(panel => {
+
+            const content = panel.querySelector(
+                '.film-reading__content'
+            );
+
+            content.hidden = true;
+
+        });
+
+
+        // Change the active panel
+        this.active = target;
+        this.container.dataset.active = target;
+
+
+        // Update accessibility states
+        this.buttons.forEach(button => {
+
+            const isActive =
+                button.dataset.readingToggle === target;
+
+            button.setAttribute(
+                'aria-expanded',
+                String(isActive)
+            );
+
+        });
+
+
+        // Reveal the selected text
+        const revealContent = () => {
+
+            const selectedPanel = this.panels.find(
+                panel => panel.dataset.readingPanel === target
+            );
+
+            if (!selectedPanel) return;
+
+            const content = selectedPanel.querySelector(
+                '.film-reading__content'
+            );
+
+            content.hidden = false;
+
+            this.container.style.minHeight = '';
+
+        };
+
+
+        // Let the horizontal transition finish first
+        if (shouldAnimate) {
+
+            this.switchTimer = setTimeout(
+                revealContent,
+                450
+            );
+
+        } else {
+
+            revealContent();
+
+        }
+
+    }
+
+}
+
+
+// Initialize Synopsis / Concept accordions
+
+function initFilmReadingAccordions() {
+
+    document.querySelectorAll('[data-film-reading]')
+        .forEach(container => {
+
+            new FilmReadingAccordion(container);
+
+        });
+
+}
+
+if (document.readyState === 'loading') {
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        initFilmReadingAccordions
+    );
+
+} else {
+
+    initFilmReadingAccordions();
+
+}
+
+
